@@ -12,6 +12,7 @@
   left: 50%;
   transform: translate(-50%);
   z-index: 9999; /* Ensures the navbar is above other elements */
+  background: white;
 }
 
 .navbar-logo {
@@ -105,6 +106,7 @@ button:hover {
     z-index: -1;
     transition: all 0.3s ease-in-out;
     border-radius: 13px 13px 13px 13px; /* Rounded corners at the bottom */
+    background: white;
   }
 
   /* I want to activate this so that when the hamburger icon is clicked, the menu appears */

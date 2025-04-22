@@ -14,7 +14,7 @@ export const MenuItems = [
     icon: <FaHouseUser />,
   },
   {
-    title: "Services",
+    title: "Our Services",
     url: "/services",
     cName: "nav-links",
     icon: <FaServicestack />,
@@ -30,12 +30,6 @@ export const MenuItems = [
     url: "/cart",
     cName: "nav-links",
     icon: <FaCartShopping />,
-  },
-  {
-    title: "Contact Us",
-    url: "/contact-us",
-    cName: "nav-links",
-    icon: <FaPhoneAlt />,
   },
   {
     title: "Sign Up",
