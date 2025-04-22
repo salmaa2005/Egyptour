@@ -1,9 +1,29 @@
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import temple from "../assets/21.jpg";
-import "./Home.css"; // Create this file if it doesn't exist
+import "./Home.css";
 
 function Home() {
+  const headlineRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Stop observing after it appears
+        }
+      },
+      { threshold: 0.3 } // 30% visible
+    );
+    if (headlineRef.current) {
+      observer.observe(headlineRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -16,7 +36,10 @@ function Home() {
         btnClass="show"
         buttonText="Explore"
       />
-      <div className="headline-container">
+      <div
+        className={`headline-container ${isVisible ? "in-view" : ""}`}
+        ref={headlineRef}
+      >
         <h1 className="main-headline">Pyramids to Reefs</h1>
         <div className="underline">
           <p className="sub-headline">Explore The Wonders Of Egypt</p>
