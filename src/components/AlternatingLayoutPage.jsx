@@ -7,6 +7,10 @@ import ValleyOfTheKings from "../assets/VALLEYOFTHEKINGS.jpg";
 import NileCruise from "../assets/nile-cruise.jpg";
 import TempleOfPhilae from "../assets/Philae-island.jpg";
 import WhiteDesert from "../assets/whiteDesert.jpg";
+import TheRedSeaRiviera from "../assets/red-sea.jpg";
+import MarsaAlam from "../assets/marsa-alam.jpg";
+import Dahab from "../assets/dahab.jpg";
+import Sinai from "../assets/colored-canyon.jpg";
 import "./AlternatingLayoutPage.css"; // Import your CSS file
 const AlternatingLayoutPage = () => {
   const sections = [
@@ -31,11 +35,28 @@ const AlternatingLayoutPage = () => {
         "Ramses II’s monumental temple, carved into cliffs, guards the Nile with colossal statues that defy the desert sun",
       reverse: false,
     },
+    /** */
+
+    /*** */
     {
       imageUrl: NileCruise,
       title: "Nile River Cruise",
       content:
         "Sail the lifeblood of Egypt—past palm-fringed shores, feluccas at sunset, and villages unchanged for centuries",
+      reverse: true,
+    },
+    {
+      imageUrl: TheRedSeaRiviera,
+      title: "The Red Sea Riviera",
+      content:
+        "Dive into crystal-clear waters where vibrant coral reefs teem with life, and golden beaches stretch beneath endless sunlit skies",
+      reverse: false,
+    },
+    {
+      imageUrl: MarsaAlam,
+      title: "Marsa Alam’s Untouched Paradise",
+      content:
+        "Discover secluded bays where dolphins dance in turquoise waves, and the desert meets the sea in a symphony of serenity.",
       reverse: true,
     },
     {
@@ -50,6 +71,20 @@ const AlternatingLayoutPage = () => {
       title: "Temple of Philae (Aswan)",
       content:
         "A jewel of Isis, rescued from the Nile’s embrace, where moonlight dances on Ptolemaic pillars",
+      reverse: true,
+    },
+    {
+      imageUrl: Dahab,
+      title: "Dahab’s Bohemian Escape",
+      content:
+        "Unwind in laid-back beachside havens, where Bedouin traditions blend with the thrill of windsurfing under starry nights",
+      reverse: false,
+    },
+    {
+      imageUrl: Sinai,
+      title: "Sinai's Colored Canyon",
+      content:
+        "Wander through nature's gallery, where wind-carved cliffs blaze in stripes of amber, rose, and gold",
       reverse: true,
     },
   ];
