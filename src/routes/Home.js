@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import temple from "../assets/21.jpg";
 import "./Home.css";
-
+import AlternatingLayoutPage from "../components/AlternatingLayoutPage";
 function Home() {
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -34,7 +34,7 @@ function Home() {
         text="What are you waiting for?"
         url="/"
         btnClass="show"
-        buttonText="Explore"
+        buttonText="Our Services"
       />
       <div
         className={`headline-container ${isVisible ? "in-view" : ""}`}
@@ -48,6 +48,7 @@ function Home() {
       <div className="explore">
         <div className="karnak-temple"></div>
       </div>
+      <AlternatingLayoutPage />
     </>
   );
 }
