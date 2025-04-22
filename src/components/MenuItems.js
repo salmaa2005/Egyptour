@@ -1,9 +1,4 @@
-import {
-  FaHouseUser,
-  FaServicestack,
-  FaBoxOpen,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaHouseUser, FaAnkh, FaBoxOpen, FaPhoneAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 
 export const MenuItems = [
@@ -17,7 +12,7 @@ export const MenuItems = [
     title: "Our Services",
     url: "/services",
     cName: "nav-links",
-    icon: <FaServicestack />,
+    icon: <FaAnkh />,
   },
   {
     title: "Products",

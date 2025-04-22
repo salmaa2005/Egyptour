@@ -1,26 +1,27 @@
-import { BrowserRouter as Router } from "react-router-dom"; // Add this import
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
+import Home from "./routes/Home";
 import Products from "./routes/Products";
 import Cart from "./routes/Cart";
-import Home from "./routes/Home";
 import Services from "./routes/Services";
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      {" "}
-      {/* Wrap everything with Router */}
-      <div className="App">
+      <div className="app-container">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );
