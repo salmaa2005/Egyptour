@@ -1,0 +1,194 @@
+.services-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/21.jpg") no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.services-hero-content {
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.services-hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: #d4af37;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.services-hero p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2rem;
+  border-top: 4px solid #d4af37;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #008080;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #5a3921;
+}
+
+.service-card p {
+  color: #5a3921;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-link {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.service-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(90deg, #d4af37 0%, #008080 100%);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.service-link:hover {
+  color: #008080;
+}
+
+.service-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Reusing the headline styles from Home.css */
+.headline-container {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 0 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.headline-container.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.main-headline {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+  background: linear-gradient(90deg, #d4af37 0%, #008080 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.main-headline:hover {
+  letter-spacing: 1px;
+}
+
+.sub-headline {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #555;
+  margin-top: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.sub-headline::before,
+.sub-headline::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 1px;
+  background: linear-gradient(90deg, #d4af37 0%, #008080 100%);
+}
+
+.sub-headline::before {
+  left: -40px;
+}
+
+.sub-headline::after {
+  right: -40px;
+}
+
+@media (max-width: 768px) {
+  .services-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .services-hero p {
+    font-size: 1.2rem;
+  }
+
+  .main-headline {
+    font-size: 2.5rem;
+  }
+
+  .sub-headline {
+    font-size: 1.2rem;
+  }
+
+  .sub-headline::before,
+  .sub-headline::after {
+    width: 20px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

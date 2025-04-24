@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./routes/Home";
 import Products from "./routes/Products";
 import Cart from "./routes/Cart";
-import Services from "./routes/Services";
+import Services from "./routes/OurServices";
 import Footer from "./components/Footer";
 import "./App.css";
 
