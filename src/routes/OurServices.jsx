@@ -96,9 +96,11 @@ const OurServices = () => {
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
-              <a href={service.link} className="service-link">
-                Explore More →
-              </a>
+              <div className="service-link-container">
+                <a href={service.link} className="service-link">
+                  Explore More →
+                </a>
+              </div>
             </div>
           ))}
         </div>

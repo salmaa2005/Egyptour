@@ -1,0 +1,158 @@
+/* Add these new styles and update existing ones */
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  align-items: stretch; /* Make all cards the same height */
+}
+
+.tour-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take full height of grid cell */
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #d4af37;
+}
+
+.tour-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tour-image-container {
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent image container from shrinking */
+}
+
+.tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tour-card:hover .tour-image {
+  transform: scale(1.05);
+}
+
+.tour-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take remaining space */
+  padding: 1.5rem;
+}
+
+.tour-header {
+  margin-bottom: 1rem;
+}
+
+.tour-header h3 {
+  margin: 0;
+  color: #5a3921;
+  font-size: 1.5rem;
+}
+
+.tour-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: #5a3921;
+  font-weight: 600;
+}
+
+.scrollable-content {
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Make content scrollable if needed */
+  margin-bottom: 1rem;
+}
+
+.tour-description {
+  color: #5a3921;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.highlights {
+  margin: 1rem 0;
+}
+
+.highlights h4 {
+  margin-bottom: 0.5rem;
+  color: #5a3921;
+  font-size: 1.1rem;
+}
+
+.highlights ul {
+  padding-left: 1.2rem;
+  color: #5a3921;
+  margin: 0;
+}
+
+.highlights li {
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.add-to-cart-btn {
+  background: #d4af37;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  margin-top: auto; /* Push button to bottom */
+  transition: background 0.3s ease;
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+.add-to-cart-btn:hover {
+  background: #b89735;
+}
+
+.back-link {
+  display: inline-flex; /* Changed to inline-flex */
+  margin-top: 2rem;
+  color: #5a3921;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  position: relative;
+  justify-content: center; /* Center if needed */
+  width: auto; /* Explicitly set width */
+}
+
+.back-link::after {
+  content: "";
+  position: absolute;
+  width: calc(100% - 2rem); /* Adjust for padding if any */
+  height: 2px;
+  bottom: -4px;
+  left: 50%; /* Center the underline */
+  transform: translateX(-50%) scaleX(0); /* Center and transform */
+  transform-origin: center;
+  background: linear-gradient(90deg, #d4af37 0%, #008080 100%);
+  transition: transform 0.3s ease;
+}
+
+.back-link:hover::after {
+  transform: translateX(-50%) scaleX(1); /* Center and expand */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tours-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scrollable-content {
+    overflow-y: visible; /* Disable scrolling on mobile */
+  }
+}
