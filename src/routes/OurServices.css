@@ -1,8 +1,9 @@
 /* Hero Section */
 .services-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../assets/21.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 60vh;
   display: flex;
   align-items: center;
@@ -11,7 +12,6 @@
   color: white;
   margin-bottom: 3rem;
 }
-
 .services-hero-content {
   max-width: 800px;
   padding: 0 2rem;

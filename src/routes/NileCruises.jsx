@@ -7,6 +7,7 @@ import luxuryCruise from "../assets/nile-luxury.jpg";
 import familyCruise from "../assets/nile-family.png";
 import honeymoonCruise from "../assets/nile-honeymoon.jpg";
 import adventureCruise from "../assets/kayaking.jpg";
+import bgImage from "../assets/1.jpg";
 
 const NileCruises = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -115,13 +116,15 @@ const NileCruises = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImage})`,
+        }}
+      >
         <div className="services-hero-content">
-          <h1>Nile Cruise Experiences</h1>
-          <p>
-            Sail the legendary river that shaped ancient civilizations in style
-            and comfort
-          </p>
+          <h1>Nile Cruises</h1>
+          <p>Sail the legendary river that shaped ancient civilizations</p>
         </div>
       </div>
 

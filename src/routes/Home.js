@@ -32,7 +32,7 @@ function Home() {
         heroImg={temple}
         title="Your Journey Starts Here"
         text="What are you waiting for?"
-        url="/"
+        url="/services"
         btnClass="show"
         buttonText="Our Services"
       />

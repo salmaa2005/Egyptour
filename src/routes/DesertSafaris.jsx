@@ -7,6 +7,7 @@ import westernDesert from "../assets/western-desert.jpg";
 import siwaOasis from "../assets/siwa-oasis.jpg";
 import blackDesert from "../assets/black-desert.jpg";
 import dahabiya from "../assets/dahabiya.jpg";
+import bgImage from "../assets/desert.jpg";
 
 const DesertSafaris = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -115,13 +116,15 @@ const DesertSafaris = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImage})`,
+        }}
+      >
         <div className="services-hero-content">
           <h1>Desert Safaris</h1>
-          <p>
-            Experience the magic of Egypt's vast deserts with our authentic
-            Bedouin-style expeditions
-          </p>
+          <p>Experience the magic of Egypt's vast deserts</p>
         </div>
       </div>
 

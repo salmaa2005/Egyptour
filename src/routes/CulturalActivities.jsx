@@ -7,6 +7,7 @@ import foodTour from "../assets/egyptian-food.jpg";
 import pottery from "../assets/pottery.jpg";
 import textile from "../assets/textile.jpg";
 import pharaonicDance from "../assets/cultural-dance.jpg";
+import bgImage from "../assets/nubian-culture.jpg";
 
 const CulturalActivities = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -114,13 +115,15 @@ const CulturalActivities = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImage})`,
+        }}
+      >
         <div className="services-hero-content">
           <h1>Cultural Immersions</h1>
-          <p>
-            Participate in authentic Egyptian traditions, crafts, and culinary
-            experiences
-          </p>
+          <p>Participate in authentic Egyptian traditions and crafts</p>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import snorkeling from "../assets/redsea-snorkeling.jpg";
 import resort from "../assets/redsea-resort.jpg";
 import submarine from "../assets/redsea-submarine.webp";
 import safari from "../assets/redsea-safari.jpg";
+import redSeaImage from "../assets/redsea-bg.jpg";
 
 const RedSeaAdventures = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -115,13 +116,15 @@ const RedSeaAdventures = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${redSeaImage})`,
+        }}
+      >
         <div className="services-hero-content">
           <h1>Red Sea Adventures</h1>
-          <p>
-            Dive into crystal-clear waters or relax at luxurious resorts along
-            Egypt's stunning coastline
-          </p>
+          <p>Dive into crystal-clear waters along Egypt's stunning coastline</p>
         </div>
       </div>
 

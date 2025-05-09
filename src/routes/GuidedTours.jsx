@@ -13,6 +13,7 @@ import saqqara from "../assets/saqqara.jpg";
 import redSea from "../assets/redSea.jpg";
 import mosque from "../assets/islamic.jpg";
 import siwa from "../assets/siwa-oasis.jpg";
+import bgImage from "../assets/15.jpg";
 
 const GuidedTours = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -200,7 +201,12 @@ const GuidedTours = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImage})`,
+        }}
+      >
         <div className="services-hero-content">
           <h1>Ancient Explorations</h1>
           <p>

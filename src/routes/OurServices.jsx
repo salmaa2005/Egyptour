@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./OurServices.css";
 import Navbar from "../components/Navbar";
+import bgImage from "../assets/6.jpg";
 
 const OurServices = () => {
   const headlineRef = useRef(null);
@@ -63,7 +64,12 @@ const OurServices = () => {
   return (
     <>
       <Navbar />
-      <div className="services-hero">
+      <div
+        className="services-hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bgImage})`,
+        }}
+      >
         <div className="services-hero-content">
           <h1>Egyptian Experiences</h1>
           <p>

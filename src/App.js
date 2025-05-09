@@ -9,7 +9,6 @@ import NileCruises from "./routes/NileCruises";
 import DesertSafaris from "./routes/DesertSafaris";
 import CulturalActivities from "./routes/CulturalActivities";
 import RedSeaAdventures from "./routes/RedSeaAdventures";
-import CustomTours from "./routes/CustomTours";
 import Footer from "./components/Footer";
 import "./App.css";
 
@@ -35,7 +34,6 @@ function App() {
               element={<CulturalActivities />}
             />
             <Route path="/red-sea-adventures" element={<RedSeaAdventures />} />
-            <Route path="/custom-tours" element={<CustomTours />} />
           </Routes>
         </main>
         <Footer />
