@@ -56,14 +56,7 @@ const OurServices = () => {
       icon: "🐠",
       description:
         "Dive into vibrant coral reefs or relax at luxurious Red Sea resorts.",
-      link: "/red-sea",
-    },
-    {
-      title: "Custom Itineraries",
-      icon: "🗺️",
-      description:
-        "Let us craft a personalized journey tailored to your interests and pace.",
-      link: "/custom-tours",
+      link: "/red-sea-adventures",
     },
   ];
 
