@@ -21,22 +21,22 @@ namespace EgyptTour.API.Data
                 new Product
                 {
                     Id = 1,
-                    Name = "Pyramids Tour",
-                    Description = "Experience the ancient wonders of Egypt with our guided tour of the Pyramids of Giza.",
-                    Price = 99.99m,
-                    ImageUrl = "/images/pyramids.jpg",
-                    Category = "Tours",
-                    StockQuantity = 50
+                    Name = "Handcrafted Papyrus Art",
+                    Description = "Authentic Egyptian papyrus artwork featuring ancient hieroglyphics and scenes from Egyptian mythology.",
+                    Price = 45.00m,
+                    ImageUrl = "/images/products/papyrus-art.jpg",
+                    Category = "Artifacts",
+                    StockQuantity = 15
                 },
                 new Product
                 {
                     Id = 2,
-                    Name = "Nile Cruise",
-                    Description = "Enjoy a luxurious cruise along the Nile River with stunning views and cultural experiences.",
-                    Price = 299.99m,
-                    ImageUrl = "/images/nile-cruise.jpg",
-                    Category = "Cruises",
-                    StockQuantity = 30
+                    Name = "Egyptian Cotton Scarf",
+                    Description = "Luxurious hand-woven scarf made from premium Egyptian cotton, featuring traditional patterns.",
+                    Price = 35.00m,
+                    ImageUrl = "/images/products/cotton-scarf.jpg",
+                    Category = "Textiles",
+                    StockQuantity = 20
                 },
                 new Product
                 {
@@ -51,52 +51,32 @@ namespace EgyptTour.API.Data
                 new Product
                 {
                     Id = 4,
-                    Name = "Alabaster Statues",
-                    Description = "Hand-carved replicas of famous Egyptian deities.",
-                    Price = 120m,
-                    ImageUrl = "https://images.unsplash.com/photo-1598188306155-25e8eb807948",
-                    Category = "Souvenirs",
-                    StockQuantity = 15
+                    Name = "Alabaster Vase",
+                    Description = "Hand-carved alabaster vase with traditional Egyptian motifs, perfect for home decoration.",
+                    Price = 75.00m,
+                    ImageUrl = "/images/products/alabaster-vase.jpg",
+                    Category = "Artifacts",
+                    StockQuantity = 8
                 },
                 new Product
                 {
                     Id = 5,
-                    Name = "Gold-Plated Jewelry",
-                    Description = "Inspired by ancient Egyptian designs with modern craftsmanship.",
-                    Price = 85m,
-                    ImageUrl = "https://images.unsplash.com/photo-1611591437281-460bfbe1220a",
-                    Category = "Jewelry",
+                    Name = "Egyptian Spice Set",
+                    Description = "Collection of authentic Egyptian spices and herbs, perfect for traditional cooking.",
+                    Price = 25.00m,
+                    ImageUrl = "/images/products/spice-set.jpg",
+                    Category = "Food",
                     StockQuantity = 25
                 },
                 new Product
                 {
                     Id = 6,
-                    Name = "Perfume Oils",
-                    Description = "Traditional Egyptian scents like lotus and amber.",
-                    Price = 35m,
-                    ImageUrl = "https://images.unsplash.com/photo-1615368144592-6a8d1dfc9f5c",
-                    Category = "Beauty",
-                    StockQuantity = 40
-                },
-                new Product
-                {
-                    Id = 7,
-                    Name = "Cotton Galabeyas",
-                    Description = "Traditional Egyptian garments in vibrant colors.",
-                    Price = 55m,
-                    ImageUrl = "https://images.unsplash.com/photo-1551232864-3f0890e580d9",
-                    Category = "Clothing",
-                    StockQuantity = 30
-                },
-                new Product
-                {
-                    Id = 8,
-                    Name = "Copper Tableware",
-                    Description = "Hand-hammered copper plates and bowls with Egyptian patterns.",
-                    Price = 75m,
-                    ImageUrl = "https://images.unsplash.com/photo-1584735422189-fbd9e34104b2",
-                    Category = "Home Decor",
-                    StockQuantity = 20
+                    Name = "Handwoven Basket",
+                    Description = "Traditional Egyptian handwoven basket made from natural materials.",
+                    Price = 30.00m,
+                    ImageUrl = "/images/products/basket.jpg",
+                    Category = "Textiles",
+                    StockQuantity = 12
                 }
             );
         }

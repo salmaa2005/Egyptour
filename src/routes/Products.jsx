@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import "./Products.css";
 import Navbar from "../components/Navbar";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
+import axios from "axios";
 
 const Products = () => {
   const headlineRef = useRef(null);
@@ -12,6 +13,8 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const categoryMenuRef = useRef(null);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   // Use cart context
   const { cart, addToCart, increaseQuantity, decreaseQuantity } = useCart();
@@ -47,57 +50,24 @@ const Products = () => {
     };
   }, []);
 
-  const products = [
-    {
-      title: "Handcrafted Papyrus Art",
-      image: "https://images.unsplash.com/photo-1565992441121-4367c2967103",
-      price: 45,
-      description: "Authentic Egyptian papyrus paintings with ancient motifs.",
-      category: "Artwork",
-    },
-    {
-      title: "Alabaster Statues",
-      image: "https://images.unsplash.com/photo-1598188306155-25e8eb807948",
-      price: 120,
-      description: "Hand-carved replicas of famous Egyptian deities.",
-      category: "Souvenirs",
-    },
-    {
-      title: "Gold-Plated Jewelry",
-      image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a",
-      price: 85,
-      description:
-        "Inspired by ancient Egyptian designs with modern craftsmanship.",
-      category: "Jewelry",
-    },
-    {
-      title: "Perfume Oils",
-      image: "https://images.unsplash.com/photo-1615368144592-6a8d1dfc9f5c",
-      price: 35,
-      description: "Traditional Egyptian scents like lotus and amber.",
-      category: "Beauty",
-    },
-    {
-      title: "Cotton Galabeyas",
-      image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9",
-      price: 55,
-      description: "Traditional Egyptian garments in vibrant colors.",
-      category: "Clothing",
-    },
-    {
-      title: "Copper Tableware",
-      image: "https://images.unsplash.com/photo-1584735422189-fbd9e34104b2",
-      price: 75,
-      description:
-        "Hand-hammered copper plates and bowls with Egyptian patterns.",
-      category: "Home Decor",
-    },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5006/api/products");
+        console.log("API Response:", response.data);
+        setProducts(response.data);
+        // Extract unique categories from products
+        const uniqueCategories = [
+          ...new Set(response.data.map((p) => p.category)),
+        ];
+        setCategories(["All", ...uniqueCategories]);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-  const categories = [
-    "All",
-    ...new Set(products.map((product) => product.category)),
-  ];
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     let results = products;
@@ -105,7 +75,7 @@ const Products = () => {
     if (searchTerm) {
       results = results.filter(
         (product) =>
-          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           product.description
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
@@ -120,15 +90,33 @@ const Products = () => {
     }
 
     setFilteredProducts(results);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, products]);
 
   const toggleCategoryMenu = () => {
     setIsCategoryOpen(!isCategoryOpen);
   };
 
-  const handleCategorySelect = (category) => {
+  const selectCategory = (category) => {
     setSelectedCategory(category);
     setIsCategoryOpen(false);
+  };
+
+  const handleAddToCart = (productName) => {
+    const product = products.find((p) => p.name === productName);
+    if (product && product.stockQuantity > 0) {
+      addToCart(productName);
+    }
+  };
+
+  const handleIncreaseQuantity = (productName) => {
+    const product = products.find((p) => p.name === productName);
+    if (product && cart[productName] < product.stockQuantity) {
+      increaseQuantity(productName);
+    }
+  };
+
+  const handleDecreaseQuantity = (productName) => {
+    decreaseQuantity(productName);
   };
 
   return (
@@ -173,7 +161,7 @@ const Products = () => {
                     className={`category-item ${
                       selectedCategory === category ? "active" : ""
                     }`}
-                    onClick={() => handleCategorySelect(category)}
+                    onClick={() => selectCategory(category)}
                   >
                     {category}
                   </div>
@@ -189,29 +177,30 @@ const Products = () => {
               <div key={index} className="product-card">
                 <div className="product-image-container">
                   <img
-                    src={product.image}
-                    alt={product.title}
+                    src={product.imageUrl}
+                    alt={product.name}
                     className="product-image"
                   />
                   <span className="product-category">{product.category}</span>
                 </div>
                 <div className="product-content">
-                  <h3>{product.title}</h3>
+                  <h3>{product.name}</h3>
                   <p>{product.description}</p>
                   <div className="product-footer">
                     <span className="product-price">${product.price}</span>
-                    {cart[product.title] ? (
+                    {cart[product.name] ? (
                       <div className="quantity-controls">
                         <button
                           className="quantity-btn"
-                          onClick={() => decreaseQuantity(product.title)}
+                          onClick={() => handleDecreaseQuantity(product.name)}
                         >
                           -
                         </button>
-                        <span className="quantity">{cart[product.title]}</span>
+                        <span className="quantity">{cart[product.name]}</span>
                         <button
                           className="quantity-btn"
-                          onClick={() => increaseQuantity(product.title)}
+                          onClick={() => handleIncreaseQuantity(product.name)}
+                          disabled={cart[product.name] >= product.stockQuantity}
                         >
                           +
                         </button>
@@ -219,9 +208,12 @@ const Products = () => {
                     ) : (
                       <button
                         className="add-to-cart"
-                        onClick={() => addToCart(product.title)}
+                        onClick={() => handleAddToCart(product.name)}
+                        disabled={product.stockQuantity <= 0}
                       >
-                        Add to Cart
+                        {product.stockQuantity > 0
+                          ? "Add to Cart"
+                          : "Out of Stock"}
                       </button>
                     )}
                   </div>
