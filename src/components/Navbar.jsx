@@ -3,6 +3,7 @@ import { FaHouseUser } from "react-icons/fa";
 import "./Navbar.css";
 import { MenuItems } from "./MenuItems";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 class Navbar extends Component {
   state = {
     clicked: false,
@@ -31,7 +32,9 @@ class Navbar extends Component {
               </li>
             );
           })}
-          <button className="btn">Sign Up</button>
+          <Link to="/signup">
+            <button className="btn">Sign Up</button>
+          </Link>
         </ul>
       </nav>
     );

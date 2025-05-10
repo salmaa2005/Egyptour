@@ -5,6 +5,8 @@ import Home from "./routes/Home";
 import Products from "./routes/Products";
 import Cart from "./routes/Cart";
 import OurServices from "./routes/OurServices";
+import SignUp from "./routes/SignUp";
+import Login from "./routes/Login";
 import GuidedTours from "./routes/GuidedTours";
 import NileCruises from "./routes/NileCruises";
 import DesertSafaris from "./routes/DesertSafaris";
@@ -28,6 +30,8 @@ function App() {
               <Route path="/services" element={<OurServices />} />
               <Route path="/products" element={<Products />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
 
               {/* Service Detail Routes */}
               <Route path="/guided-tours" element={<GuidedTours />} />
