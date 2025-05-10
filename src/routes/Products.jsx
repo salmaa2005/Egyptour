@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useCart } from "../context/CartContext";
 import "./Products.css";
 import Navbar from "../components/Navbar";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
@@ -11,7 +12,9 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const categoryMenuRef = useRef(null);
-  const [cart, setCart] = useState({});
+
+  // Use cart context
+  const { cart, addToCart, increaseQuantity, decreaseQuantity } = useCart();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -128,35 +131,6 @@ const Products = () => {
     setIsCategoryOpen(false);
   };
 
-  const handleAddToCart = (productTitle) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [productTitle]: (prevCart[productTitle] || 0) + 1,
-    }));
-  };
-
-  const handleIncreaseQuantity = (productTitle) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [productTitle]: (prevCart[productTitle] || 0) + 1,
-    }));
-  };
-
-  const handleDecreaseQuantity = (productTitle) => {
-    setCart((prevCart) => {
-      const currentQuantity = prevCart[productTitle] || 0;
-      if (currentQuantity <= 1) {
-        const newCart = { ...prevCart };
-        delete newCart[productTitle];
-        return newCart;
-      }
-      return {
-        ...prevCart,
-        [productTitle]: currentQuantity - 1,
-      };
-    });
-  };
-
   return (
     <>
       <Navbar />
@@ -230,14 +204,14 @@ const Products = () => {
                       <div className="quantity-controls">
                         <button
                           className="quantity-btn"
-                          onClick={() => handleDecreaseQuantity(product.title)}
+                          onClick={() => decreaseQuantity(product.title)}
                         >
                           -
                         </button>
                         <span className="quantity">{cart[product.title]}</span>
                         <button
                           className="quantity-btn"
-                          onClick={() => handleIncreaseQuantity(product.title)}
+                          onClick={() => increaseQuantity(product.title)}
                         >
                           +
                         </button>
@@ -245,7 +219,7 @@ const Products = () => {
                     ) : (
                       <button
                         className="add-to-cart"
-                        onClick={() => handleAddToCart(product.title)}
+                        onClick={() => addToCart(product.title)}
                       >
                         Add to Cart
                       </button>

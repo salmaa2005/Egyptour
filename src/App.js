@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/CartContext"; // Import the CartProvider
 import Navbar from "./components/Navbar";
 import Home from "./routes/Home";
 import Products from "./routes/Products";
@@ -14,31 +15,38 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Navbar />
+    <CartProvider>
+      {" "}
+      {/* Wrap your entire app with CartProvider */}
+      <Router>
+        <div className="app-container">
+          <Navbar />
 
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<OurServices />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/cart" element={<Cart />} />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<OurServices />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/cart" element={<Cart />} />
 
-            {/* Service Detail Routes */}
-            <Route path="/guided-tours" element={<GuidedTours />} />
-            <Route path="/nile-cruises" element={<NileCruises />} />
-            <Route path="/desert-safaris" element={<DesertSafaris />} />
-            <Route
-              path="/cultural-activities"
-              element={<CulturalActivities />}
-            />
-            <Route path="/red-sea-adventures" element={<RedSeaAdventures />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+              {/* Service Detail Routes */}
+              <Route path="/guided-tours" element={<GuidedTours />} />
+              <Route path="/nile-cruises" element={<NileCruises />} />
+              <Route path="/desert-safaris" element={<DesertSafaris />} />
+              <Route
+                path="/cultural-activities"
+                element={<CulturalActivities />}
+              />
+              <Route
+                path="/red-sea-adventures"
+                element={<RedSeaAdventures />}
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 
