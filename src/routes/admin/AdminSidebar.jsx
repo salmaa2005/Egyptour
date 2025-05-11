@@ -1,12 +1,20 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./AdminShared.css";
 
 const AdminSidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path) => {
     return location.pathname === path;
+  };
+
+  const handleLogout = () => {
+    // Clear admin session
+    localStorage.removeItem("adminSession");
+    // Redirect to admin login
+    navigate("/admin");
   };
 
   return (
@@ -14,25 +22,18 @@ const AdminSidebar = () => {
       <div className="admin-navbar">
         <div className="admin-navbar-left">
           <Link to="/admin/dashboard" className="admin-brand">
-            <i className="fas fa-compass"></i>
             <span>EgyptTour Admin</span>
           </Link>
         </div>
         <div className="admin-navbar-right">
-          <div className="admin-navbar-search">
-            <i className="fas fa-search"></i>
-            <input type="text" placeholder="Search..." />
-          </div>
           <div className="admin-navbar-profile">
             <i className="fas fa-bell"></i>
-            <div className="admin-profile-dropdown">
+            <div className="admin-profile-image-container">
               <img
                 src="https://ui-avatars.com/api/?name=Admin+User&background=006666&color=fff&size=128"
                 alt="Admin Profile"
                 className="admin-profile-image"
               />
-              <span>Admin User</span>
-              <i className="fas fa-chevron-down"></i>
             </div>
           </div>
         </div>
@@ -89,7 +90,7 @@ const AdminSidebar = () => {
           </Link>
         </nav>
         <div className="admin-sidebar-footer">
-          <Link to="/" className="admin-sidebar-link">
+          <Link to="/" className="admin-sidebar-link" onClick={handleLogout}>
             <i className="fas fa-sign-out-alt"></i>
             Logout
           </Link>

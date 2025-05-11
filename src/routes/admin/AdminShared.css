@@ -27,12 +27,12 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
-  color: #5a3921;
+  color: #006666;
 }
 
 .admin-sub-headline {
   font-size: 1.2rem;
-  color: #7a5c3c;
+  color: #008080;
   margin: 0;
 }
 
@@ -121,24 +121,21 @@
   display: flex;
   align-items: center;
   background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  border: 1px solid #006666;
   border-radius: 25px;
   padding: 0.6rem 1.2rem;
   gap: 0.8rem;
-  transition: all 0.3s ease;
   width: 280px;
 }
 
 .admin-navbar-search:hover {
-  background: white;
-  border-color: #006666;
-  box-shadow: 0 0 0 3px rgba(0, 102, 102, 0.1);
+  background: #f8f9fa !important;
+  border-color: #006666 !important;
 }
 
 .admin-navbar-search:focus-within {
   background: white;
-  border-color: #006666;
-  box-shadow: 0 0 0 3px rgba(0, 102, 102, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 194, 194, 0.15);
 }
 
 .admin-navbar-search input {
@@ -162,6 +159,14 @@
 .admin-navbar-search i {
   color: #006666;
   font-size: 1rem;
+}
+
+/* Prevent any hover effects */
+.admin-navbar-search:hover,
+.admin-navbar-search:hover * {
+  color: inherit !important;
+  background: inherit !important;
+  border-color: inherit !important;
 }
 
 /* Search Icon */
@@ -189,7 +194,7 @@
   border: 1px solid #006666;
   border-radius: 30px;
   font-size: 1rem;
-  color: #5a3921;
+  color: #006666;
   cursor: pointer;
   transition: all 0.3s ease;
   appearance: none;
@@ -204,7 +209,7 @@
 
 .admin-select:hover {
   background: #fff;
-  color: #5a3921;
+  color: #006666;
   border-color: #00c2c2;
   box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
   transform: translateY(-2px);
@@ -220,7 +225,7 @@
 .admin-select option {
   padding: 1rem;
   background-color: white;
-  color: #5a3921;
+  color: #006666;
   font-weight: 500;
   border: none;
   outline: none;
@@ -232,8 +237,7 @@
 
 .admin-select option:checked {
   background-color: #f8f9fa;
-  color: #5a3921;
-  font-weight: 600;
+  color: #006666;
 }
 
 /* Add Button */
@@ -354,7 +358,7 @@
 .admin-table th {
   background-color: #f8f9fa;
   font-weight: 600;
-  color: #5a3921;
+  color: #006666;
   white-space: nowrap;
   position: sticky;
   top: 0;
@@ -778,12 +782,11 @@
   color: #006666;
   font-size: 1.3rem;
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
 .admin-brand:hover {
-  color: #00c2c2;
-  transform: translateY(-1px);
+  color: #006666 !important;
+  transform: none !important;
 }
 
 .admin-brand i {
@@ -791,6 +794,14 @@
   background: linear-gradient(135deg, #006666, #00c2c2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Prevent any hover effects on brand */
+.admin-brand:hover,
+.admin-brand:hover * {
+  color: inherit !important;
+  background: inherit !important;
+  transform: none !important;
 }
 
 .admin-navbar-right {
@@ -809,7 +820,6 @@
   color: #006666;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   padding: 0.5rem;
   border-radius: 50%;
 }
@@ -823,17 +833,11 @@
 .admin-profile-dropdown {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   border-radius: 25px;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
-}
-
-.admin-profile-dropdown:hover {
-  background: #f8f9fa;
-  border-color: #e9ecef;
+  position: relative;
 }
 
 .admin-profile-dropdown img {
@@ -842,15 +846,20 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #006666;
-  transition: all 0.3s ease;
   background-color: #006666;
   box-shadow: 0 2px 8px rgba(0, 102, 102, 0.2);
+  transform: none !important;
 }
 
-.admin-profile-dropdown:hover img {
-  border-color: #00c2c2;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 102, 102, 0.3);
+.admin-profile-dropdown i.fa-chevron-down {
+  color: #94a3b8;
+  transform-origin: center;
+  margin-left: 0.2rem;
+}
+
+.admin-profile-dropdown i.fa-chevron-down.open {
+  transform: rotate(-180deg);
+  color: #006666;
 }
 
 .admin-profile-dropdown span {
@@ -919,7 +928,6 @@
 }
 
 .admin-sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
@@ -1063,7 +1071,7 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #5a3921;
+  color: #006666;
 }
 
 .admin-form input,
@@ -1151,7 +1159,7 @@
 }
 
 .admin-form-container h2 {
-  color: #5a3921;
+  color: #006666;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
 }
@@ -1201,7 +1209,7 @@
   border: 1px solid #006666;
   border-radius: 30px;
   font-size: 1rem;
-  color: #5a3921;
+  color: #006666;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -1251,20 +1259,19 @@
 }
 
 .category-item:hover {
-  background: #f5f0e6;
+  background: #e0f7f7;
 }
 
 .category-item.active {
-  background: #f5f0e6;
-  color: #5a3921;
-  font-weight: 500;
+  background: #e0f7f7;
+  color: #006666;
 }
 
 /* Secondary Button */
 .admin-secondary-btn {
   height: 48px;
   background: white;
-  color: #5a3921;
+  color: #006666;
   text-decoration: none;
   padding: 0 1.8rem;
   border-radius: 30px;
@@ -1284,7 +1291,7 @@
 
 .admin-secondary-btn:hover {
   background: #f8f9fa;
-  color: #5a3921;
+  color: #006666;
   border-color: #00c2c2;
   box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
   transform: translateY(-2px);
@@ -1444,7 +1451,7 @@
 
 .admin-popup .form-group label {
   font-weight: 600;
-  color: #5a3921;
+  color: #006666;
 }
 
 .admin-popup .form-group input,
@@ -1562,7 +1569,7 @@
 
 .detail-group label {
   font-weight: 600;
-  color: #5a3921;
+  color: #006666;
   font-size: 0.9rem;
   letter-spacing: 0.3px;
 }
@@ -1629,7 +1636,7 @@
 }
 
 .category-list-item span {
-  color: #5a3921;
+  color: #006666;
   font-weight: 500;
 }
 
@@ -1689,7 +1696,7 @@
 }
 
 .no-bookings-message p {
-  color: #5a3921;
+  color: #006666;
   font-size: 1.1rem;
   margin: 0;
 }
@@ -1756,19 +1763,73 @@
   color: #006666 !important;
 }
 
+.admin-profile-image-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
 .admin-profile-image {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #006666;
-  transition: all 0.3s ease;
   background-color: #006666;
   box-shadow: 0 2px 8px rgba(0, 102, 102, 0.2);
+  transition: all 0.3s ease;
 }
 
 .admin-profile-image:hover {
   border-color: #00c2c2;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 102, 102, 0.3);
+}
+
+/* Remove all dropdown-related styles */
+.admin-dropdown-menu,
+.admin-dropdown-header,
+.admin-dropdown-info,
+.admin-dropdown-name,
+.admin-dropdown-email,
+.admin-dropdown-divider,
+.admin-dropdown-item,
+.admin-profile-dropdown {
+  display: none;
+}
+
+/* Remove all transitions */
+* {
+  transition: none !important;
+}
+
+/* Keep only the chevron rotation */
+.admin-profile-dropdown i.fa-chevron-down {
+  transition: transform 0.3s ease !important;
+}
+
+/* Remove all hover effects */
+.admin-dropdown-item:hover,
+.admin-dropdown-item:hover i,
+.admin-profile-dropdown:hover,
+.admin-profile-dropdown:hover img,
+.admin-profile-dropdown:hover i,
+.admin-brand:hover,
+.admin-navbar-search:hover,
+.admin-sidebar-link:hover {
+  color: inherit !important;
+  background: inherit !important;
+  border-color: inherit !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep only the chevron rotation */
+.admin-profile-dropdown i.fa-chevron-down {
+  transition: transform 0.3s ease !important;
+}
+
+/* Keep transition for profile image */
+.admin-profile-image {
+  transition: all 0.3s ease !important;
 }
