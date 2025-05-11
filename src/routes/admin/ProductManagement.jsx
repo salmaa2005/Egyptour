@@ -162,7 +162,7 @@ const ProductManagement = () => {
   };
 
   const handleDeleteCategory = (category) => {
-    if (category === "All") return; // Prevent deleting "All" category
+    if (category === "All") return;
     if (
       window.confirm(
         `Are you sure you want to delete the category "${category}"?`
@@ -176,7 +176,7 @@ const ProductManagement = () => {
   };
 
   const handleEditCategory = (oldCategory, newCategory) => {
-    if (oldCategory === "All") return; // Prevent editing "All" category
+    if (oldCategory === "All") return;
     if (newCategory.trim() && !categories.includes(newCategory.trim())) {
       setCategories(
         categories.map((c) => (c === oldCategory ? newCategory.trim() : c))
@@ -225,6 +225,7 @@ const ProductManagement = () => {
       <div className="product-content">
         <div className="product-actions-bar">
           <div className="product-search-container">
+            <FiSearch className="search-icon" />
             <input
               type="text"
               className="product-search-input"
@@ -233,6 +234,36 @@ const ProductManagement = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+
+          <div className="category-filter" ref={categoryMenuRef}>
+            <button className="category-toggle" onClick={toggleCategoryMenu}>
+              {selectedCategory}
+              <FiChevronDown
+                className={`chevron ${isCategoryOpen ? "open" : ""}`}
+              />
+            </button>
+            <div className={`category-menu ${isCategoryOpen ? "open" : ""}`}>
+              {categories.map((category) => (
+                <div
+                  key={category}
+                  className={`category-item ${
+                    selectedCategory === category ? "active" : ""
+                  }`}
+                  onClick={() => handleCategorySelect(category)}
+                >
+                  {category}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            className="product-secondary-btn"
+            onClick={() => setIsCategoryPopupOpen(true)}
+          >
+            Manage Categories
+          </button>
+
           <button
             className="product-primary-btn"
             onClick={() => setIsAddingProduct(true)}
