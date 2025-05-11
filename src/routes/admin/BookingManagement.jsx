@@ -12,7 +12,7 @@ const initialBookings = [
     category: "Guided Tours",
     tourName: "Pyramids Tour",
     date: "2024-03-15",
-    amount: "$150",
+    amount: 150,
     paymentStatus: "Paid",
     numberOfPeople: "2",
     specialRequests: "Early morning tour preferred",
@@ -25,7 +25,7 @@ const initialBookings = [
     category: "Nile Cruises",
     tourName: "Luxor to Aswan Cruise",
     date: "2024-03-20",
-    amount: "$450",
+    amount: 450,
     paymentStatus: "Pending",
     numberOfPeople: "4",
     specialRequests: "Vegetarian meal options",
@@ -38,7 +38,7 @@ const initialBookings = [
     category: "Desert Safaris",
     tourName: "White Desert Tour",
     date: "2024-03-25",
-    amount: "$200",
+    amount: 200,
     paymentStatus: "Confirmed",
     numberOfPeople: "3",
     specialRequests: "Private guide requested",
@@ -51,7 +51,7 @@ const initialBookings = [
     category: "Cultural Activities",
     tourName: "Traditional Cooking Class",
     date: "2024-03-18",
-    amount: "$75",
+    amount: 75,
     paymentStatus: "Paid",
     numberOfPeople: "2",
     specialRequests: "Allergic to nuts",
@@ -64,7 +64,7 @@ const initialBookings = [
     category: "Red Sea Adventures",
     tourName: "Hurghada Diving",
     date: "2024-03-22",
-    amount: "$180",
+    amount: 180,
     paymentStatus: "Pending",
     numberOfPeople: "1",
     specialRequests: "Advanced diving certification",
@@ -144,7 +144,7 @@ const BookingManagement = () => {
     const newBookingWithId = {
       ...newBooking,
       id: Date.now(),
-      amount: `$${newBooking.amount}`,
+      amount: Number(newBooking.amount),
     };
     setBookings([...bookings, newBookingWithId]);
     setNewBooking({
@@ -167,7 +167,7 @@ const BookingManagement = () => {
       booking.id === editingBooking.id
         ? {
             ...editingBooking,
-            amount: `$${editingBooking.amount}`,
+            amount: Number(editingBooking.amount),
           }
         : booking
     );

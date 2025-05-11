@@ -134,7 +134,7 @@ const Products = () => {
   return (
     <>
       <Navbar />
-      <div className="products-page-container">
+      <div className="customerproducts-page-container">
         <div className="top-accent" />
         <div
           className={`headline-container ${isVisible ? "in-view" : ""}`}

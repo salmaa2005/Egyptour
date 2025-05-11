@@ -267,7 +267,7 @@ const TourManagement = () => {
                   </div>
                   <div className="detail-group">
                     <label>Price:</label>
-                    <span>{viewingTour.price}</span>
+                    <span>${viewingTour.price}</span>
                   </div>
                   <div className="detail-group">
                     <label>Duration:</label>
