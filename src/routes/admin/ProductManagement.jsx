@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./AdminShared.css";
+import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
 
 const ProductManagement = () => {
   // Mock product data
@@ -46,10 +47,45 @@ const ProductManagement = () => {
     stock: "",
   });
 
-  const categories = [
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const categoryMenuRef = useRef(null);
+
+  const [isCategoryPopupOpen, setIsCategoryPopupOpen] = useState(false);
+  const [categories, setCategories] = useState([
     "All",
-    ...new Set(products.map((product) => product.category)),
-  ];
+    "Artwork",
+    "Souvenirs",
+    "Jewelry",
+    "Beauty",
+    "Clothing",
+    "Home Decor",
+  ]);
+  const [newCategory, setNewCategory] = useState("");
+  const [editingCategory, setEditingCategory] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        categoryMenuRef.current &&
+        !categoryMenuRef.current.contains(event.target)
+      ) {
+        setIsCategoryOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleCategoryMenu = () => {
+    setIsCategoryOpen(!isCategoryOpen);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setIsCategoryOpen(false);
+  };
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
@@ -106,6 +142,40 @@ const ProductManagement = () => {
     );
   };
 
+  const handleAddCategory = () => {
+    if (newCategory.trim() && !categories.includes(newCategory.trim())) {
+      setCategories([...categories, newCategory.trim()]);
+      setNewCategory("");
+    }
+  };
+
+  const handleDeleteCategory = (category) => {
+    if (category === "All") return; // Prevent deleting "All" category
+    if (
+      window.confirm(
+        `Are you sure you want to delete the category "${category}"?`
+      )
+    ) {
+      setCategories(categories.filter((c) => c !== category));
+      if (selectedCategory === category) {
+        setSelectedCategory("All");
+      }
+    }
+  };
+
+  const handleEditCategory = (oldCategory, newCategory) => {
+    if (oldCategory === "All") return; // Prevent editing "All" category
+    if (newCategory.trim() && !categories.includes(newCategory.trim())) {
+      setCategories(
+        categories.map((c) => (c === oldCategory ? newCategory.trim() : c))
+      );
+      if (selectedCategory === oldCategory) {
+        setSelectedCategory(newCategory.trim());
+      }
+      setEditingCategory(null);
+    }
+  };
+
   return (
     <div className="page-container">
       <div className="admin-headline-container">
@@ -118,32 +188,141 @@ const ProductManagement = () => {
       <div className="admin-content">
         <div className="admin-actions-bar">
           <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="admin-search-input"
-            />
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="admin-select"
+            <div className="search-bar">
+              <FiSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="admin-search-input"
+              />
+            </div>
+            <div className="category-filter" ref={categoryMenuRef}>
+              <button className="category-toggle" onClick={toggleCategoryMenu}>
+                {selectedCategory}
+                <FiChevronDown
+                  className={`chevron ${isCategoryOpen ? "open" : ""}`}
+                />
+              </button>
+              <div className={`category-menu ${isCategoryOpen ? "open" : ""}`}>
+                {categories.map((category) => (
+                  <div
+                    key={category}
+                    className={`category-item ${
+                      selectedCategory === category ? "active" : ""
+                    }`}
+                    onClick={() => handleCategorySelect(category)}
+                  >
+                    {category}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button
+              className="admin-secondary-btn"
+              onClick={() => setIsCategoryPopupOpen(true)}
             >
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+              <i className="fas fa-tags"></i>
+              Manage Categories
+            </button>
           </div>
           <button
             className="admin-primary-btn"
             onClick={() => setIsAddingProduct(true)}
           >
+            <i className="fas fa-plus"></i>
             Add New Product
           </button>
         </div>
+
+        {/* Category Management Popup */}
+        {isCategoryPopupOpen && (
+          <div className="admin-popup-overlay">
+            <div className="admin-popup">
+              <div className="admin-popup-header">
+                <h2>Manage Categories</h2>
+                <button
+                  className="admin-popup-close"
+                  onClick={() => setIsCategoryPopupOpen(false)}
+                >
+                  <FiX />
+                </button>
+              </div>
+              <div className="admin-popup-content">
+                <div className="category-list">
+                  {categories.map((category) => (
+                    <div key={category} className="category-list-item">
+                      {editingCategory === category ? (
+                        <div className="category-edit-form">
+                          <input
+                            type="text"
+                            value={newCategory}
+                            onChange={(e) => setNewCategory(e.target.value)}
+                            placeholder="New category name"
+                          />
+                          <div className="category-edit-actions">
+                            <button
+                              className="admin-action-btn edit"
+                              onClick={() =>
+                                handleEditCategory(category, newCategory)
+                              }
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="admin-action-btn delete"
+                              onClick={() => setEditingCategory(null)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <span>{category}</span>
+                          {category !== "All" && (
+                            <div className="category-actions">
+                              <button
+                                className="admin-action-btn edit"
+                                onClick={() => {
+                                  setEditingCategory(category);
+                                  setNewCategory(category);
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="admin-action-btn delete"
+                                onClick={() => handleDeleteCategory(category)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="category-add-form">
+                  <input
+                    type="text"
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                    placeholder="New category name"
+                  />
+                  <button
+                    className="admin-primary-btn"
+                    onClick={handleAddCategory}
+                  >
+                    Add Category
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {isAddingProduct && (
           <div className="admin-form-container">
