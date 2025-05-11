@@ -253,13 +253,13 @@ const TourManagement = () => {
               <div className="admin-popup-header">
                 <h2>Tour Details</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => {
                     setIsViewingTour(false);
                     setViewingTour(null);
                   }}
                 >
-                  <FiX />
+                  ×
                 </button>
               </div>
               <div className="admin-popup-content">
@@ -320,10 +320,10 @@ const TourManagement = () => {
               <div className="admin-popup-header">
                 <h2>Add New Tour</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => setIsAddingTour(false)}
                 >
-                  <FiX />
+                  ×
                 </button>
               </div>
               <div className="admin-popup-content">
@@ -413,7 +413,7 @@ const TourManagement = () => {
                       Add Tour
                     </button>
                     <button
-                      className="admin-action-btn delete"
+                      className="cancel-booking"
                       onClick={() => setIsAddingTour(false)}
                     >
                       Cancel
@@ -432,13 +432,13 @@ const TourManagement = () => {
               <div className="admin-popup-header">
                 <h2>Edit Tour</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => {
                     setIsEditingTour(false);
                     setEditingTour(null);
                   }}
                 >
-                  <FiX />
+                  ×
                 </button>
               </div>
               <div className="admin-popup-content">
@@ -546,7 +546,7 @@ const TourManagement = () => {
                       Update Tour
                     </button>
                     <button
-                      className="admin-action-btn delete"
+                      className="cancel-booking"
                       onClick={() => {
                         setIsEditingTour(false);
                         setEditingTour(null);

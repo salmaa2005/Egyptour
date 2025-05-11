@@ -26,7 +26,11 @@ const AdminSidebar = () => {
           <div className="admin-navbar-profile">
             <i className="fas fa-bell"></i>
             <div className="admin-profile-dropdown">
-              <img src="https://via.placeholder.com/32" alt="Admin" />
+              <img
+                src="https://ui-avatars.com/api/?name=Admin+User&background=006666&color=fff&size=128"
+                alt="Admin Profile"
+                className="admin-profile-image"
+              />
               <span>Admin User</span>
               <i className="fas fa-chevron-down"></i>
             </div>
