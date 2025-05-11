@@ -134,44 +134,58 @@ const Products = () => {
   return (
     <>
       <Navbar />
-      <div className="customerproducts-page-container">
-        <div className="top-accent" />
+      <div className="products-page-container">
+        <div className="products-top-accent" />
         <div
-          className={`headline-container ${isVisible ? "in-view" : ""}`}
+          className={`products-headline-container ${
+            isVisible ? "products-headline-in-view" : ""
+          }`}
           ref={headlineRef}
         >
-          <h1 className="main-headline">Egyptian Crafts</h1>
-          <div className="underline">
-            <p className="sub-headline">
+          <h1 className="products-main-headline">Egyptian Crafts</h1>
+          <div className="products-headline-underline">
+            <p className="products-sub-headline">
               Timeless Pieces Inspired by Antiquity
             </p>
           </div>
         </div>
 
-        <div className="search-container">
-          <div className="search-controls">
-            <div className="search-bar">
-              <FiSearch className="search-icon" />
+        <div className="products-search-container">
+          <div className="products-search-controls">
+            <div className="products-search-bar">
+              <FiSearch className="products-search-icon" />
               <input
                 type="text"
+                className="products-search-input"
                 placeholder="Search artifacts, jewelry, textiles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="category-filter" ref={categoryMenuRef}>
-              <button className="category-toggle" onClick={toggleCategoryMenu}>
+            <div className="products-category-filter" ref={categoryMenuRef}>
+              <button
+                className="products-category-toggle"
+                onClick={toggleCategoryMenu}
+              >
                 {selectedCategory}
                 <FiChevronDown
-                  className={`chevron ${isCategoryOpen ? "open" : ""}`}
+                  className={`products-chevron ${
+                    isCategoryOpen ? "products-chevron-open" : ""
+                  }`}
                 />
               </button>
-              <div className={`category-menu ${isCategoryOpen ? "open" : ""}`}>
+              <div
+                className={`products-category-menu ${
+                  isCategoryOpen ? "products-category-menu-open" : ""
+                }`}
+              >
                 {categories.map((category) => (
                   <div
                     key={category}
-                    className={`category-item ${
-                      selectedCategory === category ? "active" : ""
+                    className={`products-category-item ${
+                      selectedCategory === category
+                        ? "products-category-item-active"
+                        : ""
                     }`}
                     onClick={() => handleCategorySelect(category)}
                   >
@@ -183,34 +197,42 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="products-container">
-          <div className="products-grid">
+        <div className="products-items-container">
+          <div className="products-items-grid">
             {filteredProducts.map((product, index) => (
-              <div key={index} className="product-card">
-                <div className="product-image-container">
+              <div key={index} className="products-item-card">
+                <div className="products-item-image-container">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="product-image"
+                    className="products-item-image"
                   />
-                  <span className="product-category">{product.category}</span>
+                  <span className="products-item-category">
+                    {product.category}
+                  </span>
                 </div>
-                <div className="product-content">
-                  <h3>{product.title}</h3>
-                  <p>{product.description}</p>
-                  <div className="product-footer">
-                    <span className="product-price">${product.price}</span>
+                <div className="products-item-content">
+                  <h3 className="products-item-title">{product.title}</h3>
+                  <p className="products-item-description">
+                    {product.description}
+                  </p>
+                  <div className="products-item-footer">
+                    <span className="products-item-price">
+                      ${product.price}
+                    </span>
                     {cart[product.title] ? (
-                      <div className="quantity-controls">
+                      <div className="products-quantity-controls">
                         <button
-                          className="quantity-btn"
+                          className="products-quantity-btn"
                           onClick={() => decreaseQuantity(product.title)}
                         >
                           -
                         </button>
-                        <span className="quantity">{cart[product.title]}</span>
+                        <span className="products-quantity">
+                          {cart[product.title]}
+                        </span>
                         <button
-                          className="quantity-btn"
+                          className="products-quantity-btn"
                           onClick={() => increaseQuantity(product.title)}
                         >
                           +
@@ -218,7 +240,7 @@ const Products = () => {
                       </div>
                     ) : (
                       <button
-                        className="add-to-cart"
+                        className="products-add-to-cart-btn"
                         onClick={() => addToCart(product.title)}
                       >
                         Add to Cart

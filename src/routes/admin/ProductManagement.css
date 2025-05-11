@@ -60,6 +60,7 @@
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Product-specific search container */
 .product-search-container {
   display: flex;
   align-items: center;
@@ -74,6 +75,7 @@
   color: #006666;
 }
 
+/* Product-specific search input */
 .product-search-input {
   width: 100%;
   padding: 0.8rem 1rem 0.8rem 2.5rem;
@@ -83,13 +85,23 @@
   transition: all 0.3s ease;
 }
 
+.product-search-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
 .product-search-input:focus {
   outline: none;
   border-color: #00c2c2;
   box-shadow: 0 0 0 3px rgba(0, 194, 194, 0.1);
 }
 
-/* Category Filter */
+.product-search-input:hover {
+  border-color: #00c2c2;
+  background: white;
+}
+
+/* Product-specific category filter */
 .category-filter {
   position: relative;
   min-width: 180px;
