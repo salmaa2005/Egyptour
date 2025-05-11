@@ -91,6 +91,8 @@ const BookingManagement = () => {
     phone: "",
     category: "",
   });
+  const [isViewingBooking, setIsViewingBooking] = useState(false);
+  const [viewingBooking, setViewingBooking] = useState(null);
 
   // Update localStorage whenever bookings change
   useEffect(() => {
@@ -277,8 +279,8 @@ const BookingManagement = () => {
                       <button
                         className="booking-action-btn view"
                         onClick={() => {
-                          setEditingBooking(booking);
-                          setIsEditingBooking(true);
+                          setViewingBooking(booking);
+                          setIsViewingBooking(true);
                         }}
                       >
                         <i className="fas fa-eye"></i>
@@ -617,6 +619,87 @@ const BookingManagement = () => {
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* View Booking Details Popup */}
+        {isViewingBooking && viewingBooking && (
+          <div className="admin-popup-overlay">
+            <div className="admin-popup">
+              <div className="admin-popup-header">
+                <h2>Booking Details</h2>
+                <button
+                  className="close-button"
+                  onClick={() => {
+                    setIsViewingBooking(false);
+                    setViewingBooking(null);
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              <div className="admin-popup-content">
+                <div className="booking-details">
+                  <div className="detail-group">
+                    <label>Customer Name:</label>
+                    <span>{viewingBooking.customerName}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Customer Email:</label>
+                    <span>{viewingBooking.customerEmail}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Phone:</label>
+                    <span>{viewingBooking.phone}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Service Category:</label>
+                    <span>{viewingBooking.category}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Tour Name:</label>
+                    <span>{viewingBooking.tourName}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Date:</label>
+                    <span>{viewingBooking.date}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Number of People:</label>
+                    <span>{viewingBooking.numberOfPeople}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Amount:</label>
+                    <span>${viewingBooking.amount}</span>
+                  </div>
+                  <div className="detail-group">
+                    <label>Payment Status:</label>
+                    <span
+                      className={`booking-status-badge ${viewingBooking.paymentStatus.toLowerCase()}`}
+                    >
+                      {viewingBooking.paymentStatus}
+                    </span>
+                  </div>
+                  <div className="detail-group full-width">
+                    <label>Special Requests:</label>
+                    <p>
+                      {viewingBooking.specialRequests || "No special requests"}
+                    </p>
+                  </div>
+                </div>
+                <div className="form-actions">
+                  <button
+                    className="cancel-booking"
+                    onClick={() => {
+                      setIsViewingBooking(false);
+                      setViewingBooking(null);
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
