@@ -13,6 +13,12 @@ import DesertSafaris from "./routes/DesertSafaris";
 import CulturalActivities from "./routes/CulturalActivities";
 import RedSeaAdventures from "./routes/RedSeaAdventures";
 import Footer from "./components/Footer";
+import AdminLayout from "./routes/admin/AdminLayout";
+import AdminLogin from "./routes/admin/AdminLogin";
+import AdminDashboard from "./routes/admin/AdminDashboard";
+import UserManagement from "./routes/admin/UserManagement";
+import TourManagement from "./routes/admin/TourManagement";
+import BookingManagement from "./routes/admin/BookingManagement";
 import "./App.css";
 
 function App() {
@@ -22,32 +28,51 @@ function App() {
       {/* Wrap your entire app with CartProvider */}
       <Router>
         <div className="app-container">
-          <Navbar />
+          <Routes>
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="tours" element={<TourManagement />} />
+              <Route path="bookings" element={<BookingManagement />} />
+            </Route>
 
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<OurServices />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
-
-              {/* Service Detail Routes */}
-              <Route path="/guided-tours" element={<GuidedTours />} />
-              <Route path="/nile-cruises" element={<NileCruises />} />
-              <Route path="/desert-safaris" element={<DesertSafaris />} />
-              <Route
-                path="/cultural-activities"
-                element={<CulturalActivities />}
-              />
-              <Route
-                path="/red-sea-adventures"
-                element={<RedSeaAdventures />}
-              />
-            </Routes>
-          </main>
-          <Footer />
+            {/* Customer Routes */}
+            <Route
+              path="/*"
+              element={
+                <>
+                  <Navbar />
+                  <main className="main-content">
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/services" element={<OurServices />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/signup" element={<SignUp />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/guided-tours" element={<GuidedTours />} />
+                      <Route path="/nile-cruises" element={<NileCruises />} />
+                      <Route
+                        path="/desert-safaris"
+                        element={<DesertSafaris />}
+                      />
+                      <Route
+                        path="/cultural-activities"
+                        element={<CulturalActivities />}
+                      />
+                      <Route
+                        path="/red-sea-adventures"
+                        element={<RedSeaAdventures />}
+                      />
+                    </Routes>
+                  </main>
+                  <Footer />
+                </>
+              }
+            />
+          </Routes>
         </div>
       </Router>
     </CartProvider>
