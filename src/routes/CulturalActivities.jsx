@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./ServicePage.css";
 import Navbar from "../components/Navbar";
+import BookingPopup from "../components/BookingPopup";
 import nubianVillage from "../assets/nubian-village.jpg";
 import foodTour from "../assets/egyptian-food.jpg";
 import pottery from "../assets/pottery.jpg";
@@ -10,7 +11,8 @@ import pharaonicDance from "../assets/cultural-dance.jpg";
 import bgImage from "../assets/nubian-culture.jpg";
 
 const CulturalActivities = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,9 +32,9 @@ const CulturalActivities = () => {
     return () => observer.disconnect();
   }, []);
 
-  const addToCart = (activity) => {
-    setCartItems([...cartItems, activity]);
-    alert(`${activity.title} added to cart!`);
+  const handleBookNow = (activity) => {
+    setSelectedActivity(activity);
+    setIsBookingOpen(true);
   };
 
   const activities = [
@@ -171,9 +173,9 @@ const CulturalActivities = () => {
 
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(activity)}
+                  onClick={() => handleBookNow(activity)}
                 >
-                  Add to Cart
+                  Book Now
                 </button>
               </div>
             </div>
@@ -187,6 +189,14 @@ const CulturalActivities = () => {
           ← Back to Services
         </Link>
       </div>
+
+      {selectedActivity && (
+        <BookingPopup
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          service={selectedActivity}
+        />
+      )}
     </>
   );
 };

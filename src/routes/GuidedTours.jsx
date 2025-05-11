@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./ServicePage.css";
 import Navbar from "../components/Navbar";
+import BookingPopup from "../components/BookingPopup";
 import pyramidsImage from "../assets/2.jpg";
 import luxorTemple from "../assets/3.jpg";
 import alex from "../assets/alex.jpg";
@@ -16,7 +17,8 @@ import siwa from "../assets/siwa-oasis.jpg";
 import bgImage from "../assets/15.jpg";
 
 const GuidedTours = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedTour, setSelectedTour] = useState(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -36,9 +38,9 @@ const GuidedTours = () => {
     return () => observer.disconnect();
   }, []);
 
-  const addToCart = (tour) => {
-    setCartItems([...cartItems, tour]);
-    alert(`${tour.title} added to cart!`);
+  const handleBookNow = (tour) => {
+    setSelectedTour(tour);
+    setIsBookingOpen(true);
   };
 
   const tours = [
@@ -231,12 +233,7 @@ const GuidedTours = () => {
           {tours.map((tour) => (
             <div key={tour.id} className="tour-card">
               <div className="tour-image-container">
-                <img
-                  img
-                  src={tour.image}
-                  alt={tour.title}
-                  className="tour-image"
-                />
+                <img src={tour.image} alt={tour.title} className="tour-image" />
               </div>
               <div className="tour-content-wrapper">
                 <div className="tour-header">
@@ -261,9 +258,9 @@ const GuidedTours = () => {
 
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(tour)}
+                  onClick={() => handleBookNow(tour)}
                 >
-                  Add to Cart
+                  Book Now
                 </button>
               </div>
             </div>
@@ -277,6 +274,14 @@ const GuidedTours = () => {
           ← Back to Services
         </Link>
       </div>
+
+      {selectedTour && (
+        <BookingPopup
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          service={selectedTour}
+        />
+      )}
     </>
   );
 };

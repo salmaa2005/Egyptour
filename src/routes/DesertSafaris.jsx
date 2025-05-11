@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./ServicePage.css";
 import Navbar from "../components/Navbar";
+import BookingPopup from "../components/BookingPopup";
 import whiteDesert from "../assets/white-desert.avif";
 import westernDesert from "../assets/western-desert.jpg";
 import siwaOasis from "../assets/siwa-oasis.jpg";
@@ -10,7 +11,8 @@ import dahabiya from "../assets/dahabiya.jpg";
 import bgImage from "../assets/desert.jpg";
 
 const DesertSafaris = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedSafari, setSelectedSafari] = useState(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,9 +32,9 @@ const DesertSafaris = () => {
     return () => observer.disconnect();
   }, []);
 
-  const addToCart = (safari) => {
-    setCartItems([...cartItems, safari]);
-    alert(`${safari.title} added to cart!`);
+  const handleBookNow = (safari) => {
+    setSelectedSafari(safari);
+    setIsBookingOpen(true);
   };
 
   const safaris = [
@@ -172,9 +174,9 @@ const DesertSafaris = () => {
 
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(safari)}
+                  onClick={() => handleBookNow(safari)}
                 >
-                  Add to Cart
+                  Book Now
                 </button>
               </div>
             </div>
@@ -188,6 +190,14 @@ const DesertSafaris = () => {
           ← Back to Services
         </Link>
       </div>
+
+      {selectedSafari && (
+        <BookingPopup
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          service={selectedSafari}
+        />
+      )}
     </>
   );
 };

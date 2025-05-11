@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./ServicePage.css";
 import Navbar from "../components/Navbar";
+import BookingPopup from "../components/BookingPopup";
 import diving from "../assets/redsea-diving.jpg";
 import snorkeling from "../assets/redsea-snorkeling.jpg";
 import resort from "../assets/redsea-resort.jpg";
@@ -10,7 +11,8 @@ import safari from "../assets/redsea-safari.jpg";
 import redSeaImage from "../assets/redsea-bg.jpg";
 
 const RedSeaAdventures = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedAdventure, setSelectedAdventure] = useState(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,9 +32,9 @@ const RedSeaAdventures = () => {
     return () => observer.disconnect();
   }, []);
 
-  const addToCart = (adventure) => {
-    setCartItems([...cartItems, adventure]);
-    alert(`${adventure.title} added to cart!`);
+  const handleBookNow = (adventure) => {
+    setSelectedAdventure(adventure);
+    setIsBookingOpen(true);
   };
 
   const adventures = [
@@ -172,9 +174,9 @@ const RedSeaAdventures = () => {
 
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(adventure)}
+                  onClick={() => handleBookNow(adventure)}
                 >
-                  Add to Cart
+                  Book Now
                 </button>
               </div>
             </div>
@@ -188,6 +190,14 @@ const RedSeaAdventures = () => {
           ← Back to Services
         </Link>
       </div>
+
+      {selectedAdventure && (
+        <BookingPopup
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          service={selectedAdventure}
+        />
+      )}
     </>
   );
 };

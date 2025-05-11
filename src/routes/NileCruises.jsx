@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./ServicePage.css";
 import Navbar from "../components/Navbar";
+import BookingPopup from "../components/BookingPopup";
 import classicCruise from "../assets/nile-classic.jpg";
 import luxuryCruise from "../assets/nile-luxury.jpg";
 import familyCruise from "../assets/nile-family.png";
@@ -10,7 +11,8 @@ import adventureCruise from "../assets/kayaking.jpg";
 import bgImage from "../assets/1.jpg";
 
 const NileCruises = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedCruise, setSelectedCruise] = useState(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const headlineRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,9 +32,9 @@ const NileCruises = () => {
     return () => observer.disconnect();
   }, []);
 
-  const addToCart = (cruise) => {
-    setCartItems([...cartItems, cruise]);
-    alert(`${cruise.title} added to cart!`);
+  const handleBookNow = (cruise) => {
+    setSelectedCruise(cruise);
+    setIsBookingOpen(true);
   };
 
   const cruises = [
@@ -172,9 +174,9 @@ const NileCruises = () => {
 
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => addToCart(cruise)}
+                  onClick={() => handleBookNow(cruise)}
                 >
-                  Add to Cart
+                  Book Now
                 </button>
               </div>
             </div>
@@ -188,6 +190,14 @@ const NileCruises = () => {
           ← Back to Services
         </Link>
       </div>
+
+      {selectedCruise && (
+        <BookingPopup
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          service={selectedCruise}
+        />
+      )}
     </>
   );
 };

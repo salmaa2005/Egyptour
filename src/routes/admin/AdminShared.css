@@ -1207,30 +1207,41 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  animation: overlayFadeIn 0.3s ease;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .admin-popup {
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
+  max-width: 700px;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  animation: popupFadeIn 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
-@keyframes popupFadeIn {
+@keyframes popupSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -1239,14 +1250,12 @@
 }
 
 .admin-popup-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to right, #006666, #00c2c2);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
 }
 
 .admin-popup-header h2 {
@@ -1254,16 +1263,17 @@
   color: white;
   font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .admin-popup-close {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   color: white;
   cursor: pointer;
   padding: 0.5rem;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1272,7 +1282,7 @@
 }
 
 .admin-popup-close:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: rotate(90deg);
 }
 
@@ -1291,48 +1301,57 @@
 }
 
 .admin-popup .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .admin-popup .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   font-weight: 600;
   color: #5a3921;
   font-size: 0.95rem;
+  letter-spacing: 0.3px;
 }
 
 .admin-popup .form-group input,
 .admin-popup .form-group textarea,
 .admin-popup .form-group select {
   width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid #d4af37;
-  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
   background: white;
+  color: #2d3748;
+}
+
+.admin-popup .form-group input:hover,
+.admin-popup .form-group textarea:hover,
+.admin-popup .form-group select:hover {
+  border-color: #c19a6b;
 }
 
 .admin-popup .form-group input:focus,
 .admin-popup .form-group textarea:focus,
 .admin-popup .form-group select:focus {
   outline: none;
-  border-color: #c19a6b;
-  box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+  border-color: #006666;
+  box-shadow: 0 0 0 4px rgba(0, 102, 102, 0.1);
 }
 
 .admin-popup .form-group textarea {
   min-height: 120px;
   resize: vertical;
+  line-height: 1.6;
 }
 
 .admin-popup .form-group select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235a3921' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.5rem;
+  background-position: right 1.2rem center;
+  padding-right: 3rem;
 }
 
 .admin-popup .form-actions {
@@ -1340,16 +1359,17 @@
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e2e8f0;
 }
 
 .admin-popup .form-actions button {
   flex: 1;
-  height: 48px;
+  height: 52px;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 12px;
   transition: all 0.3s ease;
+  letter-spacing: 0.3px;
 }
 
 .admin-popup .form-actions .admin-primary-btn {
@@ -1367,7 +1387,7 @@
 .admin-popup .form-actions .admin-action-btn.delete {
   background: white;
   color: #d32f2f;
-  border: 1px solid #d32f2f;
+  border: 2px solid #d32f2f;
 }
 
 .admin-popup .form-actions .admin-action-btn.delete:hover {
@@ -1375,11 +1395,60 @@
   transform: translateY(-2px);
 }
 
+/* Tour Details Styles */
+.tour-details {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.detail-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.detail-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-group label {
+  font-weight: 600;
+  color: #5a3921;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.detail-group span {
+  color: #2d3748;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.detail-group p {
+  color: #2d3748;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .admin-popup {
     width: 95%;
-    max-height: 95vh;
+    max-height: 90vh;
+  }
+
+  .admin-popup-header {
+    padding: 1.2rem 1.5rem;
   }
 
   .admin-popup-content {
@@ -1392,6 +1461,12 @@
 
   .admin-popup .form-actions button {
     width: 100%;
+  }
+
+  .tour-details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
   }
 }
 
