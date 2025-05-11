@@ -48,6 +48,15 @@ const AdminSidebar = () => {
             Dashboard
           </Link>
           <Link
+            to="/admin/products"
+            className={`admin-sidebar-link ${
+              isActive("/admin/products") ? "active" : ""
+            }`}
+          >
+            <i className="fas fa-shopping-bag"></i>
+            Products
+          </Link>
+          <Link
             to="/admin/users"
             className={`admin-sidebar-link ${
               isActive("/admin/users") ? "active" : ""

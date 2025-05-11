@@ -19,6 +19,7 @@ import AdminDashboard from "./routes/admin/AdminDashboard";
 import UserManagement from "./routes/admin/UserManagement";
 import TourManagement from "./routes/admin/TourManagement";
 import BookingManagement from "./routes/admin/BookingManagement";
+import ProductManagement from "./routes/admin/ProductManagement";
 import "./App.css";
 
 function App() {
@@ -30,12 +31,13 @@ function App() {
         <div className="app-container">
           <Routes>
             {/* Admin Routes */}
-            <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminLogin />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="users" element={<UserManagement />} />
               <Route path="tours" element={<TourManagement />} />
               <Route path="bookings" element={<BookingManagement />} />
+              <Route path="products" element={<ProductManagement />} />
             </Route>
 
             {/* Customer Routes */}
