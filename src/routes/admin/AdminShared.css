@@ -127,19 +127,21 @@
   padding-right: 3rem;
   margin: 0;
   line-height: 48px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.1);
 }
 
 .admin-select:hover {
-  background: #fff9f3;
+  background: #fff;
   color: #5a3921;
-  border-color: #c19a6b;
-  box-shadow: 0 4px 12px rgba(193, 154, 107, 0.2);
+  border-color: #00c2c2;
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
   transform: translateY(-2px);
 }
 
 .admin-select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+  border-color: #00c2c2;
+  box-shadow: 0 0 0 3px rgba(0, 194, 194, 0.2);
   background: white;
 }
 
@@ -148,6 +150,18 @@
   background-color: white;
   color: #5a3921;
   font-weight: 500;
+  border: none;
+  outline: none;
+}
+
+.admin-select option:hover {
+  background-color: #f8f9fa;
+}
+
+.admin-select option:checked {
+  background-color: #f8f9fa;
+  color: #5a3921;
+  font-weight: 600;
 }
 
 /* Add Button */
@@ -1089,8 +1103,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 48px;
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid #d4af37;
   border-radius: 30px;
@@ -1119,14 +1132,14 @@
 
 .category-menu {
   position: absolute;
-  top: calc(100% + 5px);
+  top: 100%;
   left: 0;
   right: 0;
   background: white;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  z-index: 1001;
+  z-index: 10;
   max-height: 0;
   opacity: 0;
   transition: max-height 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
@@ -1136,8 +1149,8 @@
 .category-menu.open {
   max-height: 300px;
   opacity: 1;
-  transform: translateY(0);
-  margin-top: 0;
+  transform: translateY(5px);
+  margin-top: 0.5rem;
 }
 
 .category-item {
@@ -1171,18 +1184,18 @@
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  border: 1px solid #d4af37;
+  border: 1px solid #00c2c2;
   min-width: 140px;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.1);
   letter-spacing: 0.3px;
 }
 
 .admin-secondary-btn:hover {
-  background: #fff9f3;
+  background: #f8f9fa;
   color: #5a3921;
-  border-color: #c19a6b;
-  box-shadow: 0 4px 12px rgba(193, 154, 107, 0.2);
+  border-color: #00c2c2;
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1266,30 +1279,56 @@
   letter-spacing: 0.5px;
 }
 
-.admin-popup-close {
-  background: rgba(255, 255, 255, 0.15);
+.close-button {
+  background: none;
   border: none;
   color: white;
+  font-size: 2rem;
   cursor: pointer;
   padding: 0.5rem;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  line-height: 1;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  border-radius: 50%;
 }
 
-.admin-popup-close:hover {
-  background: rgba(255, 255, 255, 0.25);
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
   transform: rotate(90deg);
 }
 
 .admin-popup-content {
   padding: 2rem;
+  box-sizing: border-box;
+  width: 100%;
   overflow-y: auto;
-  background: white;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: #00c2c2 #f8f9fa;
+}
+
+/* Webkit scrollbar styling (Chrome, Safari, newer Edge) */
+.admin-popup-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-popup-content::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.admin-popup-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
+  border-radius: 4px;
+  border: 2px solid #f8f9fa;
+}
+
+.admin-popup-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #005555 0%, #00b3b3 100%);
 }
 
 /* Form Styles in Popup */
@@ -1358,41 +1397,43 @@
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
 }
 
 .admin-popup .form-actions button {
   flex: 1;
-  height: 52px;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 12px;
+  cursor: pointer;
   transition: all 0.3s ease;
-  letter-spacing: 0.3px;
 }
 
 .admin-popup .form-actions .admin-primary-btn {
-  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
+  background: linear-gradient(135deg, #00a8a8, #008b8b);
   color: white;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 102, 102, 0.2);
 }
 
 .admin-popup .form-actions .admin-primary-btn:hover {
+  background: linear-gradient(135deg, #008b8b, #006666);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 102, 102, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 168, 168, 0.2);
 }
 
-.admin-popup .form-actions .admin-action-btn.delete {
-  background: white;
-  color: #d32f2f;
-  border: 2px solid #d32f2f;
+.admin-popup .form-actions .admin-secondary-btn {
+  background: #e0f7f7;
+  color: #006666;
+  border: 2px solid #00c2c2;
+  box-shadow: 0 2px 4px rgba(0, 194, 194, 0.1);
 }
 
-.admin-popup .form-actions .admin-action-btn.delete:hover {
-  background: #fdecea;
+.admin-popup .form-actions .admin-secondary-btn:hover {
+  background: #b2ebf2;
+  color: #006666;
+  border-color: #00c2c2;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
 }
 
 /* Tour Details Styles */
@@ -1537,4 +1578,40 @@
   outline: none;
   border-color: #c19a6b;
   box-shadow: 0 0 0 2px rgba(193, 154, 107, 0.2);
+}
+
+.no-bookings-message {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.no-bookings-message p {
+  color: #5a3921;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.cancel-booking {
+  background: #e0f7f7;
+  color: #006666;
+  border: 2px solid #00c2c2;
+  box-shadow: 0 2px 4px rgba(0, 194, 194, 0.1);
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.cancel-booking:hover {
+  background: #b2ebf2;
+  color: #006666;
+  border-color: #00c2c2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
 }
