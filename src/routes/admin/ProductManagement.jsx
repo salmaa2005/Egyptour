@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./AdminShared.css";
+import "./ProductManagement.css";
 import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
+
+function getStockLevelClass(stock) {
+  if (stock > 50) return "high";
+  if (stock > 10) return "medium";
+  return "low";
+}
 
 const ProductManagement = () => {
   // Mock product data
@@ -13,6 +19,7 @@ const ProductManagement = () => {
       description: "Authentic Egyptian papyrus paintings with ancient motifs.",
       category: "Artwork",
       stock: 50,
+      status: "In-Stock",
     },
     {
       id: 2,
@@ -22,6 +29,7 @@ const ProductManagement = () => {
       description: "Hand-carved replicas of famous Egyptian deities.",
       category: "Souvenirs",
       stock: 25,
+      status: "Low-Stock",
     },
     {
       id: 3,
@@ -32,6 +40,7 @@ const ProductManagement = () => {
         "Inspired by ancient Egyptian designs with modern craftsmanship.",
       category: "Jewelry",
       stock: 100,
+      status: "In-Stock",
     },
   ]);
 
@@ -207,58 +216,25 @@ const ProductManagement = () => {
   };
 
   return (
-    <div className="page-container">
-      <div className="admin-headline-container">
-        <h1 className="admin-main-headline">Product Management</h1>
-        <p className="admin-sub-headline">
-          Manage your products, inventory, and pricing
-        </p>
+    <div className="product-page-container">
+      <div className="product-headline-container">
+        <h1 className="product-main-headline">Product Management</h1>
+        <p className="product-sub-headline">Manage and monitor shop products</p>
       </div>
 
-      <div className="admin-content">
-        <div className="admin-actions-bar">
-          <div className="search-container">
-            <div className="search-bar">
-              <FiSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="admin-search-input"
-              />
-            </div>
-            <div className="category-filter" ref={categoryMenuRef}>
-              <button className="category-toggle" onClick={toggleCategoryMenu}>
-                {selectedCategory}
-                <FiChevronDown
-                  className={`chevron ${isCategoryOpen ? "open" : ""}`}
-                />
-              </button>
-              <div className={`category-menu ${isCategoryOpen ? "open" : ""}`}>
-                {categories.map((category) => (
-                  <div
-                    key={category}
-                    className={`category-item ${
-                      selectedCategory === category ? "active" : ""
-                    }`}
-                    onClick={() => handleCategorySelect(category)}
-                  >
-                    {category}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button
-              className="admin-secondary-btn"
-              onClick={() => setIsCategoryPopupOpen(true)}
-            >
-              <i className="fas fa-tags"></i>
-              Manage Categories
-            </button>
+      <div className="product-content">
+        <div className="product-actions-bar">
+          <div className="product-search-container">
+            <input
+              type="text"
+              className="product-search-input"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <button
-            className="admin-primary-btn"
+            className="product-primary-btn"
             onClick={() => setIsAddingProduct(true)}
           >
             <i className="fas fa-plus"></i>
@@ -462,17 +438,17 @@ const ProductManagement = () => {
           </div>
         )}
 
-        <div className="admin-table-container">
-          <table className="admin-table">
+        <div className="product-table-container">
+          <table className="product-table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Image</th>
-                <th>Title</th>
+                <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Description</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -484,35 +460,46 @@ const ProductManagement = () => {
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="product-thumbnail"
+                      className="product-image-preview"
                     />
                   </td>
                   <td>{product.title}</td>
                   <td>{product.category}</td>
-                  <td>${product.price}</td>
                   <td>
-                    <input
-                      type="number"
-                      value={product.stock}
-                      onChange={(e) =>
-                        handleUpdateStock(product.id, Number(e.target.value))
-                      }
-                      className="stock-input"
-                    />
+                    <span className="product-price-tag">${product.price}</span>
                   </td>
-                  <td>{product.description}</td>
                   <td>
-                    <div className="action-buttons">
+                    <span
+                      className={`product-stock-level ${getStockLevelClass(
+                        product.stock
+                      )}`}
+                    >
+                      {product.stock}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      className={`product-status-badge ${
+                        product.status ? product.status.toLowerCase() : ""
+                      }`}
+                    >
+                      {product.status || "Unknown"}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="product-action-buttons">
                       <button
-                        className="admin-action-btn edit"
+                        className="product-action-btn edit"
                         onClick={() => handleEditProduct(product)}
                       >
+                        <i className="fas fa-edit"></i>
                         Edit
                       </button>
                       <button
-                        className="admin-action-btn delete"
+                        className="product-action-btn delete"
                         onClick={() => handleDeleteProduct(product.id)}
                       >
+                        <i className="fas fa-trash"></i>
                         Delete
                       </button>
                     </div>

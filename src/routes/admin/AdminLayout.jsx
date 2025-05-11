@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import "./AdminShared.css";
+import "./AdminLayout.css";
 
 const AdminLayout = () => {
   const navigate = useNavigate();

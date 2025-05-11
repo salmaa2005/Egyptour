@@ -1,12 +1,30 @@
 import React, { useState } from "react";
-import "./AdminShared.css";
+import "./UserManagement.css";
 
 const UserManagement = () => {
   // Mock user data
   const [users] = useState([
-    { id: 1, name: "John Doe", email: "john@example.com", role: "Customer" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com", role: "Customer" },
-    { id: 3, name: "Admin User", email: "admin@example.com", role: "Admin" },
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john@example.com",
+      role: "Customer",
+      status: "Active",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane@example.com",
+      role: "Customer",
+      status: "Inactive",
+    },
+    {
+      id: 3,
+      name: "Admin User",
+      email: "admin@example.com",
+      role: "Admin",
+      status: "Active",
+    },
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,37 +35,46 @@ const UserManagement = () => {
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleEditUser = (user) => {
+    // Implement edit logic or show a modal
+    alert(`Edit user: ${user.name}`);
+  };
+
+  const handleDeleteUser = (userId) => {
+    // Implement delete logic
+    alert(`Delete user with ID: ${userId}`);
+  };
+
   return (
-    <div className="page-container">
-      <div className="admin-headline-container">
-        <h1 className="admin-main-headline">User Management</h1>
-        <p className="admin-sub-headline">
-          Manage user accounts and permissions
-        </p>
+    <div className="user-page-container">
+      <div className="user-headline-container">
+        <h1 className="user-main-headline">User Management</h1>
+        <p className="user-sub-headline">Manage and monitor user accounts</p>
       </div>
 
-      <div className="admin-content">
-        <div className="admin-actions-bar">
-          <div className="search-container">
+      <div className="user-content">
+        <div className="user-actions-bar">
+          <div className="user-search-container">
             <input
               type="text"
+              className="user-search-input"
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="admin-search-input"
             />
           </div>
-          <button className="admin-primary-btn">Add New User</button>
+          <button className="user-primary-btn">Add New User</button>
         </div>
 
-        <div className="admin-table-container">
-          <table className="admin-table">
+        <div className="user-table-container">
+          <table className="user-table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -59,9 +86,28 @@ const UserManagement = () => {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <div className="action-buttons">
-                      <button className="admin-action-btn edit">Edit</button>
-                      <button className="admin-action-btn delete">
+                    <span
+                      className={`status-badge ${
+                        user.status ? user.status.toLowerCase() : ""
+                      }`}
+                    >
+                      {user.status || "Unknown"}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="user-action-buttons">
+                      <button
+                        className="user-action-btn edit"
+                        onClick={() => handleEditUser(user)}
+                      >
+                        <i className="fas fa-edit"></i>
+                        Edit
+                      </button>
+                      <button
+                        className="user-action-btn delete"
+                        onClick={() => handleDeleteUser(user.id)}
+                      >
+                        <i className="fas fa-trash"></i>
                         Delete
                       </button>
                     </div>

@@ -1,0 +1,552 @@
+/* ========================
+   TABLE STYLES - UPDATED
+   ======================== */
+.admin-table-container {
+  overflow-x: auto;
+  margin-top: var(--space-md);
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 1000px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: var(--primary-color);
+  position: sticky;
+  top: 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-table tr:hover {
+  background-color: rgba(0, 102, 102, 0.03);
+}
+
+/* Set specific column widths */
+.admin-table th:nth-child(1),
+.admin-table td:nth-child(1) {
+  width: 12%;
+}
+
+.admin-table th:nth-child(2),
+.admin-table td:nth-child(2) {
+  width: 15%;
+}
+
+.admin-table th:nth-child(3),
+.admin-table td:nth-child(3) {
+  width: 12%;
+}
+
+.admin-table th:nth-child(4),
+.admin-table td:nth-child(4) {
+  width: 12%;
+}
+
+.admin-table th:nth-child(5),
+.admin-table td:nth-child(5) {
+  width: 15%;
+}
+
+.admin-table th:nth-child(6),
+.admin-table td:nth-child(6) {
+  width: 10%;
+}
+
+.admin-table th:nth-child(7),
+.admin-table td:nth-child(7) {
+  width: 10%;
+}
+
+.admin-table th:nth-child(8),
+.admin-table td:nth-child(8) {
+  width: 8%;
+}
+
+.admin-table th:nth-child(9),
+.admin-table td:nth-child(9) {
+  width: 6%;
+  text-align: center;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: var(--transition);
+  padding: 0.3rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background-color: rgba(0, 102, 102, 0.1);
+}
+
+.action-btn.delete {
+  color: #dc3545;
+}
+
+.action-btn.delete:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Amount column styling */
+.amount-cell {
+  font-weight: 600;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.amount-cell::before {
+  content: "$";
+}
+
+/* Status badges - updated */
+.status-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  min-width: 100px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.status-badge.paid {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-badge.pending {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.status-badge.confirmed {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+/* Table header row */
+.table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .admin-table-container {
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-table th,
+  .admin-table td {
+    padding: 0.8rem;
+  }
+}
+
+/* Booking Management Specific Styles */
+.booking-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.booking-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #006666, #00c2c2);
+}
+
+/* Booking Headline Styles */
+.booking-headline-container {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.booking-main-headline {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #006666;
+}
+
+.booking-sub-headline {
+  font-size: 1.2rem;
+  color: #008080;
+  margin: 0;
+}
+
+/* Booking Content Area */
+.booking-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+/* Booking Action Bar */
+.booking-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  background: white;
+  padding: 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: visible;
+  z-index: 1000;
+}
+
+.booking-actions-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #006666, #00c2c2);
+  opacity: 0.8;
+}
+
+.booking-search-container {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  max-width: 800px;
+  align-items: center;
+  position: relative;
+  margin: 0;
+}
+
+/* Booking Search Bar Styles */
+.booking-search-input {
+  flex: 1;
+  height: 48px;
+  padding: 0 1rem;
+  border: 1px solid #006666;
+  border-radius: 30px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+  color: #5a3921;
+  margin: 0;
+  line-height: 48px;
+}
+
+.booking-search-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.booking-search-input:focus {
+  outline: none;
+  border-color: #00c2c2;
+  box-shadow: 0 0 0 3px rgba(0, 194, 194, 0.1);
+  background: white;
+}
+
+.booking-search-input:hover {
+  border-color: #00c2c2;
+  background: white;
+}
+
+/* Booking Table Styles */
+.booking-table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  position: relative;
+  z-index: 1;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.booking-table th,
+.booking-table td {
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.booking-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #006666;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.booking-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.booking-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.booking-table tr:last-child td {
+  border-bottom: none;
+}
+
+.booking-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.booking-table td {
+  color: #444;
+  vertical-align: middle;
+}
+
+/* Booking Action Buttons */
+.booking-action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.booking-action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.booking-action-btn.edit {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.booking-action-btn.delete {
+  background-color: #fdecea;
+  color: #d32f2f;
+}
+
+.booking-action-btn.view {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.booking-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.booking-action-btn.edit:hover {
+  background-color: #bbdefb;
+  color: #1976d2;
+}
+
+.booking-action-btn.delete:hover {
+  background-color: #ffcdd2;
+  color: #d32f2f;
+}
+
+.booking-action-btn.view:hover {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+/* Booking Primary Button */
+.booking-primary-btn {
+  height: 48px;
+  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
+  color: white;
+  text-decoration: none;
+  padding: 0 1.8rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: none;
+  min-width: 140px;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 102, 102, 0.2);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  line-height: 48px;
+}
+
+.booking-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 102, 102, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+/* Booking Status Badge */
+.booking-status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.booking-status-badge.confirmed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.booking-status-badge.pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.booking-status-badge.cancelled {
+  background-color: #fdecea;
+  color: #d32f2f;
+}
+
+.booking-status-badge.completed {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Booking Amount Tag */
+.booking-amount-tag {
+  font-weight: 600;
+  color: #006666;
+  background-color: #e0f2f1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Booking Date Tag */
+.booking-date-tag {
+  font-weight: 500;
+  color: #5a3921;
+  background-color: #f5f5f5;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .booking-actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 1.2rem;
+  }
+
+  .booking-search-container {
+    flex-direction: column;
+    max-width: none;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .booking-primary-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .booking-action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .booking-table .booking-action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .booking-table .booking-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .booking-page-container {
+    padding: 1rem;
+  }
+
+  .booking-content {
+    padding: 1rem;
+  }
+
+  .booking-table th,
+  .booking-table td {
+    padding: 0.8rem;
+  }
+}

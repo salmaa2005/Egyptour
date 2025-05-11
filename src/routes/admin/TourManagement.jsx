@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AdminShared.css";
+import "./TourManagement.css";
 import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
 
 const TourManagement = () => {
@@ -15,6 +15,7 @@ const TourManagement = () => {
       description: "Explore the ancient pyramids of Giza",
       maxGroupSize: 20,
       location: "Giza",
+      status: "Active",
     },
     {
       id: 2,
@@ -26,6 +27,7 @@ const TourManagement = () => {
       description: "Luxury cruise on the Nile River",
       maxGroupSize: 50,
       location: "Luxor to Aswan",
+      status: "Inactive",
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ const TourManagement = () => {
       description: "Adventure in the Egyptian desert",
       maxGroupSize: 15,
       location: "Western Desert",
+      status: "Draft",
     },
   ]);
 
@@ -146,49 +149,25 @@ const TourManagement = () => {
   };
 
   return (
-    <div className="page-container">
-      <div className="admin-headline-container">
-        <h1 className="admin-main-headline">Tour Management</h1>
-        <p className="admin-sub-headline">
-          Manage your tour packages and availability
-        </p>
+    <div className="tour-page-container">
+      <div className="tour-headline-container">
+        <h1 className="tour-main-headline">Tour Management</h1>
+        <p className="tour-sub-headline">Manage and monitor tour packages</p>
       </div>
 
-      <div className="admin-content">
-        <div className="admin-actions-bar">
-          <div className="search-container">
-            <div className="search-bar">
-              <FiSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search tours..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="admin-search-input"
-              />
-            </div>
-            <div className="category-filter">
-              <button className="category-toggle">
-                {selectedCategory}
-                <FiChevronDown className="chevron" />
-              </button>
-              <div className="category-menu">
-                {categories.map((category) => (
-                  <div
-                    key={category}
-                    className={`category-item ${
-                      selectedCategory === category ? "active" : ""
-                    }`}
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="tour-content">
+        <div className="tour-actions-bar">
+          <div className="tour-search-container">
+            <input
+              type="text"
+              className="tour-search-input"
+              placeholder="Search tours..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <button
-            className="admin-primary-btn"
+            className="tour-primary-btn"
             onClick={() => setIsAddingTour(true)}
           >
             <i className="fas fa-plus"></i>
@@ -196,16 +175,17 @@ const TourManagement = () => {
           </button>
         </div>
 
-        <div className="admin-table-container">
-          <table className="admin-table">
+        <div className="tour-table-container">
+          <table className="tour-table">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Tour Name</th>
-                <th>Category</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Location</th>
                 <th>Price</th>
                 <th>Duration</th>
-                <th>Bookings</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -213,29 +193,42 @@ const TourManagement = () => {
               {filteredTours.map((tour) => (
                 <tr key={tour.id}>
                   <td>{tour.id}</td>
-                  <td>{tour.name}</td>
-                  <td>{tour.category}</td>
-                  <td>{tour.price}</td>
-                  <td>{tour.duration}</td>
-                  <td>{tour.bookings}</td>
                   <td>
-                    <div className="action-buttons">
+                    <img
+                      src={tour.image}
+                      alt={tour.name}
+                      className="tour-image-preview"
+                    />
+                  </td>
+                  <td>{tour.name}</td>
+                  <td>{tour.location}</td>
+                  <td>
+                    <span className="tour-price-tag">${tour.price}</span>
+                  </td>
+                  <td>{tour.duration}</td>
+                  <td>
+                    <span
+                      className={`tour-status-badge ${
+                        tour.status ? tour.status.toLowerCase() : ""
+                      }`}
+                    >
+                      {tour.status || "Unknown"}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="tour-action-buttons">
                       <button
-                        className="admin-action-btn edit"
+                        className="tour-action-btn edit"
                         onClick={() => handleEditTour(tour)}
                       >
+                        <i className="fas fa-edit"></i>
                         Edit
                       </button>
                       <button
-                        className="admin-action-btn view"
-                        onClick={() => handleViewTour(tour)}
-                      >
-                        View Details
-                      </button>
-                      <button
-                        className="admin-action-btn delete"
+                        className="tour-action-btn delete"
                         onClick={() => handleDeleteTour(tour.id)}
                       >
+                        <i className="fas fa-trash"></i>
                         Delete
                       </button>
                     </div>

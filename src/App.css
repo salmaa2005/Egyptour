@@ -43,3 +43,17 @@
     transform: rotate(360deg);
   }
 }
+/* Add to App.css */
+/* Reset for admin routes */
+#root .admin-booking-container,
+#root .admin-booking-container * {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  margin: initial;
+  padding: initial;
+}
+
+#root .admin-booking-container a {
+  text-decoration: none;
+  color: inherit;
+}

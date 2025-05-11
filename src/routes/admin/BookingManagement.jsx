@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./AdminShared.css";
+import "./BookingManagement.css";
 import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
 
 // Define static data outside the component
@@ -210,57 +210,25 @@ const BookingManagement = () => {
   };
 
   return (
-    <div className="page-container">
-      <div className="admin-headline-container">
-        <h1 className="admin-main-headline">Booking Management</h1>
-        <p className="admin-sub-headline">Manage and track all tour bookings</p>
+    <div className="booking-page-container">
+      <div className="booking-headline-container">
+        <h1 className="booking-main-headline">Booking Management</h1>
+        <p className="booking-sub-headline">Manage and monitor tour bookings</p>
       </div>
 
-      <div className="admin-content">
-        <div className="admin-actions-bar">
-          <div className="search-container">
-            <div className="search-bar">
-              <FiSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search bookings..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="admin-search-input"
-              />
-            </div>
-            <div className="category-filter" ref={categoryMenuRef}>
-              <button className="category-toggle" onClick={toggleCategoryMenu}>
-                {categoryFilter}
-                <FiChevronDown
-                  className={`chevron ${isCategoryOpen ? "open" : ""}`}
-                />
-              </button>
-              <div className={`category-menu ${isCategoryOpen ? "open" : ""}`}>
-                <div
-                  className={`category-item ${
-                    categoryFilter === "All" ? "active" : ""
-                  }`}
-                  onClick={() => handleCategorySelect("All")}
-                >
-                  All Categories
-                </div>
-                {Object.keys(serviceCategories).map((category) => (
-                  <div
-                    key={category}
-                    className={`category-item ${
-                      categoryFilter === category ? "active" : ""
-                    }`}
-                    onClick={() => handleCategorySelect(category)}
-                  >
-                    {category}
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="booking-content">
+        <div className="booking-actions-bar">
+          <div className="booking-search-container">
+            <input
+              type="text"
+              className="booking-search-input"
+              placeholder="Search bookings..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <button
-            className="admin-primary-btn"
+            className="booking-primary-btn"
             onClick={() => setIsAddingBooking(true)}
           >
             <i className="fas fa-plus"></i>
@@ -268,69 +236,77 @@ const BookingManagement = () => {
           </button>
         </div>
 
-        <div className="admin-table-container">
-          {filteredBookings.length === 0 ? (
-            <div className="no-bookings-message">
-              <p>No bookings found. Click "Add New Booking" to create one.</p>
-            </div>
-          ) : (
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Customer Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Category</th>
-                  <th>Tour</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>People</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredBookings.map((booking) => (
-                  <tr key={booking.id}>
-                    <td>{booking.customerName}</td>
-                    <td>{booking.customerEmail}</td>
-                    <td>{booking.phone}</td>
-                    <td>{booking.category}</td>
-                    <td>{booking.tourName}</td>
-                    <td>{booking.date}</td>
-                    <td>{booking.amount}</td>
-                    <td>
-                      <span
-                        className={`status-badge ${booking.paymentStatus.toLowerCase()}`}
+        <div className="booking-table-container">
+          <table className="booking-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Tour</th>
+                <th>Date</th>
+                <th>Guests</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredBookings.map((booking) => (
+                <tr key={booking.id}>
+                  <td>{booking.id}</td>
+                  <td>{booking.customerName}</td>
+                  <td>{booking.tourName}</td>
+                  <td>
+                    <span className="booking-date-tag">{booking.date}</span>
+                  </td>
+                  <td>{booking.numberOfPeople}</td>
+                  <td>
+                    <span className="booking-amount-tag">
+                      ${booking.amount}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      className={`booking-status-badge ${booking.paymentStatus.toLowerCase()}`}
+                    >
+                      {booking.paymentStatus}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="booking-action-buttons">
+                      <button
+                        className="booking-action-btn view"
+                        onClick={() => {
+                          setEditingBooking(booking);
+                          setIsEditingBooking(true);
+                        }}
                       >
-                        {booking.paymentStatus}
-                      </span>
-                    </td>
-                    <td>{booking.numberOfPeople}</td>
-                    <td>
-                      <div className="action-buttons">
-                        <button
-                          className="admin-action-btn edit"
-                          onClick={() => {
-                            setEditingBooking(booking);
-                            setIsEditingBooking(true);
-                          }}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="admin-action-btn delete"
-                          onClick={() => handleDeleteBooking(booking.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                        <i className="fas fa-eye"></i>
+                        View
+                      </button>
+                      <button
+                        className="booking-action-btn edit"
+                        onClick={() => {
+                          setEditingBooking(booking);
+                          setIsEditingBooking(true);
+                        }}
+                      >
+                        <i className="fas fa-edit"></i>
+                        Edit
+                      </button>
+                      <button
+                        className="booking-action-btn delete"
+                        onClick={() => handleDeleteBooking(booking.id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Add/Edit Booking Popup */}
@@ -440,13 +416,13 @@ const BookingManagement = () => {
                           setNewBooking({
                             ...newBooking,
                             category,
-                            tourName: "", // Reset tour name when category changes
+                            tourName: "",
                           });
                         } else {
                           setEditingBooking({
                             ...editingBooking,
                             category,
-                            tourName: "", // Reset tour name when category changes
+                            tourName: "",
                           });
                         }
                       }}
