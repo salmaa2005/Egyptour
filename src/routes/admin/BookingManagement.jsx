@@ -1,44 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminShared.css";
 import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
 
 const BookingManagement = () => {
-  // Mock booking data
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      customerName: "John Doe",
-      customerEmail: "john@example.com",
-      tourName: "Pyramids Tour",
-      date: "2024-03-15",
-      amount: "$150",
-      paymentStatus: "Paid",
-      numberOfPeople: 2,
-      specialRequests: "None",
-    },
-    {
-      id: 2,
-      customerName: "Jane Smith",
-      customerEmail: "jane@example.com",
-      tourName: "Nile Cruise",
-      date: "2024-03-20",
-      amount: "$300",
-      paymentStatus: "Pending",
-      numberOfPeople: 4,
-      specialRequests: "Vegetarian meals",
-    },
-    {
-      id: 3,
-      customerName: "Mike Johnson",
-      customerEmail: "mike@example.com",
-      tourName: "Desert Safari",
-      date: "2024-03-25",
-      amount: "$200",
-      paymentStatus: "Paid",
-      numberOfPeople: 3,
-      specialRequests: "None",
-    },
-  ]);
+  // Initialize bookings from localStorage
+  const [bookings, setBookings] = useState(() => {
+    const savedBookings = localStorage.getItem("bookings");
+    return savedBookings ? JSON.parse(savedBookings) : [];
+  });
+
+  // Update localStorage whenever bookings change
+  useEffect(() => {
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+  }, [bookings]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -54,6 +28,7 @@ const BookingManagement = () => {
     paymentStatus: "Pending",
     numberOfPeople: "",
     specialRequests: "",
+    phone: "",
   });
 
   const statuses = ["All", "Paid", "Pending", "Cancelled"];
@@ -70,24 +45,12 @@ const BookingManagement = () => {
   });
 
   const handleAddBooking = () => {
-    if (
-      !newBooking.customerName ||
-      !newBooking.customerEmail ||
-      !newBooking.tourName ||
-      !newBooking.date ||
-      !newBooking.amount ||
-      !newBooking.numberOfPeople
-    ) {
-      alert("Please fill in all required fields");
-      return;
-    }
-
-    const booking = {
-      id: bookings.length + 1,
+    const newBookingWithId = {
       ...newBooking,
+      id: Date.now(),
+      amount: `$${newBooking.amount}`,
     };
-
-    setBookings([...bookings, booking]);
+    setBookings([...bookings, newBookingWithId]);
     setNewBooking({
       customerName: "",
       customerEmail: "",
@@ -97,33 +60,21 @@ const BookingManagement = () => {
       paymentStatus: "Pending",
       numberOfPeople: "",
       specialRequests: "",
+      phone: "",
     });
     setIsAddingBooking(false);
   };
 
-  const handleEditBooking = (booking) => {
-    setEditingBooking({ ...booking });
-    setIsEditingBooking(true);
-  };
-
-  const handleUpdateBooking = () => {
-    if (
-      !editingBooking.customerName ||
-      !editingBooking.customerEmail ||
-      !editingBooking.tourName ||
-      !editingBooking.date ||
-      !editingBooking.amount ||
-      !editingBooking.numberOfPeople
-    ) {
-      alert("Please fill in all required fields");
-      return;
-    }
-
-    setBookings(
-      bookings.map((booking) =>
-        booking.id === editingBooking.id ? editingBooking : booking
-      )
+  const handleEditBooking = () => {
+    const updatedBookings = bookings.map((booking) =>
+      booking.id === editingBooking.id
+        ? {
+            ...editingBooking,
+            amount: `$${editingBooking.amount}`,
+          }
+        : booking
     );
+    setBookings(updatedBookings);
     setIsEditingBooking(false);
     setEditingBooking(null);
   };
@@ -187,20 +138,23 @@ const BookingManagement = () => {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Booking ID</th>
-                <th>Customer</th>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Phone</th>
                 <th>Tour</th>
                 <th>Date</th>
                 <th>Amount</th>
-                <th>Payment</th>
+                <th>Status</th>
+                <th>People</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredBookings.map((booking) => (
                 <tr key={booking.id}>
-                  <td>#{booking.id}</td>
                   <td>{booking.customerName}</td>
+                  <td>{booking.customerEmail}</td>
+                  <td>{booking.phone}</td>
                   <td>{booking.tourName}</td>
                   <td>{booking.date}</td>
                   <td>{booking.amount}</td>
@@ -211,11 +165,15 @@ const BookingManagement = () => {
                       {booking.paymentStatus}
                     </span>
                   </td>
+                  <td>{booking.numberOfPeople}</td>
                   <td>
-                    <div className="action-buttons">
+                    <div className="admin-actions">
                       <button
                         className="admin-action-btn edit"
-                        onClick={() => handleEditBooking(booking)}
+                        onClick={() => {
+                          setEditingBooking(booking);
+                          setIsEditingBooking(true);
+                        }}
                       >
                         Edit
                       </button>
@@ -223,7 +181,7 @@ const BookingManagement = () => {
                         className="admin-action-btn delete"
                         onClick={() => handleDeleteBooking(booking.id)}
                       >
-                        Cancel
+                        Delete
                       </button>
                     </div>
                   </td>
@@ -233,160 +191,16 @@ const BookingManagement = () => {
           </table>
         </div>
 
-        {/* Add Booking Popup */}
-        {isAddingBooking && (
+        {/* Add/Edit Booking Popup */}
+        {(isAddingBooking || isEditingBooking) && (
           <div className="admin-popup-overlay">
             <div className="admin-popup">
               <div className="admin-popup-header">
-                <h2>Add New Booking</h2>
+                <h2>{isAddingBooking ? "Add New Booking" : "Edit Booking"}</h2>
                 <button
-                  className="admin-popup-close"
-                  onClick={() => setIsAddingBooking(false)}
-                >
-                  <FiX />
-                </button>
-              </div>
-              <div className="admin-popup-content">
-                <div className="admin-form">
-                  <div className="form-group">
-                    <label>Customer Name</label>
-                    <input
-                      type="text"
-                      value={newBooking.customerName}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          customerName: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Customer Email</label>
-                    <input
-                      type="email"
-                      value={newBooking.customerEmail}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          customerEmail: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Tour</label>
-                    <select
-                      value={newBooking.tourName}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          tourName: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Select a tour</option>
-                      {availableTours.map((tour) => (
-                        <option key={tour} value={tour}>
-                          {tour}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Date</label>
-                    <input
-                      type="date"
-                      value={newBooking.date}
-                      onChange={(e) =>
-                        setNewBooking({ ...newBooking, date: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Amount</label>
-                    <input
-                      type="text"
-                      value={newBooking.amount}
-                      onChange={(e) =>
-                        setNewBooking({ ...newBooking, amount: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Payment Status</label>
-                    <select
-                      value={newBooking.paymentStatus}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          paymentStatus: e.target.value,
-                        })
-                      }
-                    >
-                      {statuses
-                        .filter((status) => status !== "All")
-                        .map((status) => (
-                          <option key={status} value={status}>
-                            {status}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Number of People</label>
-                    <input
-                      type="number"
-                      value={newBooking.numberOfPeople}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          numberOfPeople: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Special Requests</label>
-                    <textarea
-                      value={newBooking.specialRequests}
-                      onChange={(e) =>
-                        setNewBooking({
-                          ...newBooking,
-                          specialRequests: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="form-actions">
-                    <button
-                      className="admin-primary-btn"
-                      onClick={handleAddBooking}
-                    >
-                      Add Booking
-                    </button>
-                    <button
-                      className="admin-action-btn delete"
-                      onClick={() => setIsAddingBooking(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Edit Booking Popup */}
-        {isEditingBooking && editingBooking && (
-          <div className="admin-popup-overlay">
-            <div className="admin-popup">
-              <div className="admin-popup-header">
-                <h2>Edit Booking</h2>
-                <button
-                  className="admin-popup-close"
+                  className="admin-close-btn"
                   onClick={() => {
+                    setIsAddingBooking(false);
                     setIsEditingBooking(false);
                     setEditingBooking(null);
                   }}
@@ -395,43 +209,101 @@ const BookingManagement = () => {
                 </button>
               </div>
               <div className="admin-popup-content">
-                <div className="admin-form">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    isAddingBooking ? handleAddBooking() : handleEditBooking();
+                  }}
+                >
                   <div className="form-group">
-                    <label>Customer Name</label>
+                    <label>Customer Name *</label>
                     <input
                       type="text"
-                      value={editingBooking.customerName}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          customerName: e.target.value,
-                        })
+                      value={
+                        isAddingBooking
+                          ? newBooking.customerName
+                          : editingBooking.customerName
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              customerName: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              customerName: e.target.value,
+                            })
+                      }
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>Customer Email</label>
+                    <label>Customer Email *</label>
                     <input
                       type="email"
-                      value={editingBooking.customerEmail}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          customerEmail: e.target.value,
-                        })
+                      value={
+                        isAddingBooking
+                          ? newBooking.customerEmail
+                          : editingBooking.customerEmail
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              customerEmail: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              customerEmail: e.target.value,
+                            })
+                      }
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>Tour</label>
-                    <select
-                      value={editingBooking.tourName}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          tourName: e.target.value,
-                        })
+                    <label>Phone Number *</label>
+                    <input
+                      type="tel"
+                      value={
+                        isAddingBooking
+                          ? newBooking.phone
+                          : editingBooking.phone
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              phone: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              phone: e.target.value,
+                            })
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Tour Name *</label>
+                    <select
+                      value={
+                        isAddingBooking
+                          ? newBooking.tourName
+                          : editingBooking.tourName
+                      }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              tourName: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              tourName: e.target.value,
+                            })
+                      }
+                      required
                     >
                       <option value="">Select a tour</option>
                       {availableTours.map((tour) => (
@@ -442,40 +314,92 @@ const BookingManagement = () => {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Date</label>
+                    <label>Date *</label>
                     <input
                       type="date"
-                      value={editingBooking.date}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          date: e.target.value,
-                        })
+                      value={
+                        isAddingBooking ? newBooking.date : editingBooking.date
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              date: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              date: e.target.value,
+                            })
+                      }
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>Amount</label>
+                    <label>Number of People *</label>
                     <input
-                      type="text"
-                      value={editingBooking.amount}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          amount: e.target.value,
-                        })
+                      type="number"
+                      min="1"
+                      value={
+                        isAddingBooking
+                          ? newBooking.numberOfPeople
+                          : editingBooking.numberOfPeople
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              numberOfPeople: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              numberOfPeople: e.target.value,
+                            })
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Amount per Person *</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={
+                        isAddingBooking
+                          ? newBooking.amount
+                          : editingBooking.amount
+                      }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              amount: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              amount: e.target.value,
+                            })
+                      }
+                      required
                     />
                   </div>
                   <div className="form-group">
                     <label>Payment Status</label>
                     <select
-                      value={editingBooking.paymentStatus}
+                      value={
+                        isAddingBooking
+                          ? newBooking.paymentStatus
+                          : editingBooking.paymentStatus
+                      }
                       onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          paymentStatus: e.target.value,
-                        })
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              paymentStatus: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              paymentStatus: e.target.value,
+                            })
                       }
                     >
                       {statuses
@@ -488,48 +412,44 @@ const BookingManagement = () => {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Number of People</label>
-                    <input
-                      type="number"
-                      value={editingBooking.numberOfPeople}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          numberOfPeople: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="form-group">
                     <label>Special Requests</label>
                     <textarea
-                      value={editingBooking.specialRequests}
-                      onChange={(e) =>
-                        setEditingBooking({
-                          ...editingBooking,
-                          specialRequests: e.target.value,
-                        })
+                      value={
+                        isAddingBooking
+                          ? newBooking.specialRequests
+                          : editingBooking.specialRequests
                       }
+                      onChange={(e) =>
+                        isAddingBooking
+                          ? setNewBooking({
+                              ...newBooking,
+                              specialRequests: e.target.value,
+                            })
+                          : setEditingBooking({
+                              ...editingBooking,
+                              specialRequests: e.target.value,
+                            })
+                      }
+                      rows="3"
                     />
                   </div>
-                  <div className="form-actions">
+                  <div className="admin-popup-actions">
                     <button
-                      className="admin-primary-btn"
-                      onClick={handleUpdateBooking}
-                    >
-                      Update Booking
-                    </button>
-                    <button
-                      className="admin-action-btn delete"
+                      type="button"
+                      className="admin-secondary-btn"
                       onClick={() => {
+                        setIsAddingBooking(false);
                         setIsEditingBooking(false);
                         setEditingBooking(null);
                       }}
                     >
                       Cancel
                     </button>
+                    <button type="submit" className="admin-primary-btn">
+                      {isAddingBooking ? "Add Booking" : "Update Booking"}
+                    </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

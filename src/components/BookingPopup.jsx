@@ -13,8 +13,31 @@ const BookingPopup = ({ isOpen, onClose, service }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the booking details to your backend
-    console.log("Booking details:", { ...bookingDetails, service });
+
+    // Create a new booking object that matches the admin interface structure
+    const newBooking = {
+      id: Date.now(), // Generate a unique ID
+      customerName: bookingDetails.name,
+      customerEmail: bookingDetails.email,
+      tourName: service.title,
+      date: bookingDetails.date,
+      amount: `$${service.price * parseInt(bookingDetails.people)}`,
+      paymentStatus: "Pending",
+      numberOfPeople: parseInt(bookingDetails.people),
+      specialRequests: bookingDetails.specialRequests || "None",
+      phone: bookingDetails.phone,
+    };
+
+    // Here you would typically send the booking to your backend
+    // For now, we'll store it in localStorage to simulate persistence
+    const existingBookings = JSON.parse(
+      localStorage.getItem("bookings") || "[]"
+    );
+    localStorage.setItem(
+      "bookings",
+      JSON.stringify([...existingBookings, newBooking])
+    );
+
     alert("Booking submitted successfully! We'll contact you shortly.");
     onClose();
   };
@@ -39,7 +62,11 @@ const BookingPopup = ({ isOpen, onClose, service }) => {
                 <strong>Duration:</strong> {service.duration}
               </p>
               <p>
-                <strong>Price:</strong> ${service.price}
+                <strong>Price:</strong> ${service.price} per person
+              </p>
+              <p>
+                <strong>Total Price:</strong> $
+                {service.price * parseInt(bookingDetails.people)}
               </p>
             </div>
           </div>

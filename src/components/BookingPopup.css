@@ -184,41 +184,46 @@
 }
 
 .booking-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
-.confirm-booking,
-.cancel-booking {
-  padding: 1rem;
+.booking-actions button {
+  flex: 1;
+  padding: 0.8rem;
   border: none;
   border-radius: 8px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .confirm-booking {
-  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
+  background: linear-gradient(135deg, #00a8a8, #008b8b);
   color: white;
 }
 
 .confirm-booking:hover {
+  background: linear-gradient(135deg, #008b8b, #006666);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 102, 102, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 168, 168, 0.2);
 }
 
 .cancel-booking {
-  background: #f8f9fa;
-  color: #5a3921;
-  border: 2px solid #e0e0e0;
+  background: #e0f7f7;
+  color: #006666;
+  border: 2px solid #00c2c2;
+  box-shadow: 0 2px 4px rgba(0, 194, 194, 0.1);
 }
 
 .cancel-booking:hover {
-  background: #e9ecef;
-  border-color: #dee2e6;
+  background: #b2ebf2;
+  color: #006666;
+  border-color: #00c2c2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
 }
 
 @media (max-width: 768px) {
