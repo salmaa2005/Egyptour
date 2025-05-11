@@ -1279,7 +1279,7 @@
   letter-spacing: 0.5px;
 }
 
-.close-button {
+.admin-popup-header .close-button {
   background: none;
   border: none;
   color: white;
@@ -1296,7 +1296,7 @@
   border-radius: 50%;
 }
 
-.close-button:hover {
+.admin-popup-header .close-button:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: rotate(90deg);
 }
@@ -1609,6 +1609,28 @@
 }
 
 .cancel-booking:hover {
+  background: #b2ebf2;
+  color: #006666;
+  border-color: #00c2c2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 194, 194, 0.2);
+}
+
+.admin-popup .form-actions .admin-action-btn.delete {
+  background: #e0f7f7;
+  color: #006666;
+  border: 2px solid #00c2c2;
+  box-shadow: 0 2px 4px rgba(0, 194, 194, 0.1);
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.admin-popup .form-actions .admin-action-btn.delete:hover {
   background: #b2ebf2;
   color: #006666;
   border-color: #00c2c2;

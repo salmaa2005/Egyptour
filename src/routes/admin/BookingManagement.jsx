@@ -2,20 +2,78 @@ import React, { useState, useEffect, useRef } from "react";
 import "./AdminShared.css";
 import { FiSearch, FiChevronDown, FiX } from "react-icons/fi";
 
+// Define static data outside the component
+const initialBookings = [
+  {
+    id: 1,
+    customerName: "John Smith",
+    customerEmail: "john.smith@email.com",
+    phone: "+1 (555) 123-4567",
+    category: "Guided Tours",
+    tourName: "Pyramids Tour",
+    date: "2024-03-15",
+    amount: "$150",
+    paymentStatus: "Paid",
+    numberOfPeople: "2",
+    specialRequests: "Early morning tour preferred",
+  },
+  {
+    id: 2,
+    customerName: "Maria Garcia",
+    customerEmail: "maria.g@email.com",
+    phone: "+1 (555) 987-6543",
+    category: "Nile Cruises",
+    tourName: "Luxor to Aswan Cruise",
+    date: "2024-03-20",
+    amount: "$450",
+    paymentStatus: "Pending",
+    numberOfPeople: "4",
+    specialRequests: "Vegetarian meal options",
+  },
+  {
+    id: 3,
+    customerName: "Ahmed Hassan",
+    customerEmail: "ahmed.h@email.com",
+    phone: "+20 123 456 7890",
+    category: "Desert Safaris",
+    tourName: "White Desert Tour",
+    date: "2024-03-25",
+    amount: "$200",
+    paymentStatus: "Confirmed",
+    numberOfPeople: "3",
+    specialRequests: "Private guide requested",
+  },
+  {
+    id: 4,
+    customerName: "Sarah Johnson",
+    customerEmail: "sarah.j@email.com",
+    phone: "+1 (555) 234-5678",
+    category: "Cultural Activities",
+    tourName: "Traditional Cooking Class",
+    date: "2024-03-18",
+    amount: "$75",
+    paymentStatus: "Paid",
+    numberOfPeople: "2",
+    specialRequests: "Allergic to nuts",
+  },
+  {
+    id: 5,
+    customerName: "Mohammed Ali",
+    customerEmail: "m.ali@email.com",
+    phone: "+20 987 654 3210",
+    category: "Red Sea Adventures",
+    tourName: "Hurghada Diving",
+    date: "2024-03-22",
+    amount: "$180",
+    paymentStatus: "Pending",
+    numberOfPeople: "1",
+    specialRequests: "Advanced diving certification",
+  },
+];
+
 const BookingManagement = () => {
-  // Initialize bookings from localStorage
-  const [bookings, setBookings] = useState(() => {
-    const savedBookings = localStorage.getItem("bookings");
-    console.log("Loaded bookings from localStorage:", savedBookings);
-    return savedBookings ? JSON.parse(savedBookings) : [];
-  });
-
-  // Update localStorage whenever bookings change
-  useEffect(() => {
-    console.log("Current bookings state:", bookings);
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-  }, [bookings]);
-
+  // Initialize with static data
+  const [bookings, setBookings] = useState(initialBookings);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [isAddingBooking, setIsAddingBooking] = useState(false);
@@ -33,6 +91,11 @@ const BookingManagement = () => {
     phone: "",
     category: "",
   });
+
+  // Update localStorage whenever bookings change
+  useEffect(() => {
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+  }, [bookings]);
 
   const statuses = ["All", "Paid", "Pending", "Cancelled"];
 
@@ -74,6 +137,8 @@ const BookingManagement = () => {
       categoryFilter === "All" || booking.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
+
+  console.log("Filtered bookings:", filteredBookings);
 
   const handleAddBooking = () => {
     const newBookingWithId = {
@@ -243,7 +308,7 @@ const BookingManagement = () => {
                     </td>
                     <td>{booking.numberOfPeople}</td>
                     <td>
-                      <div className="admin-actions">
+                      <div className="action-buttons">
                         <button
                           className="admin-action-btn edit"
                           onClick={() => {

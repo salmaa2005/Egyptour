@@ -273,7 +273,7 @@ const ProductManagement = () => {
               <div className="admin-popup-header">
                 <h2>Add New Product</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => setIsAddingProduct(false)}
                 >
                   <FiX />
@@ -362,7 +362,7 @@ const ProductManagement = () => {
                       Add Product
                     </button>
                     <button
-                      className="admin-action-btn delete"
+                      className="cancel-booking"
                       onClick={() => setIsAddingProduct(false)}
                     >
                       Cancel
@@ -381,7 +381,7 @@ const ProductManagement = () => {
               <div className="admin-popup-header">
                 <h2>Manage Categories</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => setIsCategoryPopupOpen(false)}
                 >
                   <FiX />
@@ -530,7 +530,7 @@ const ProductManagement = () => {
               <div className="admin-popup-header">
                 <h2>Edit Product</h2>
                 <button
-                  className="admin-popup-close"
+                  className="close-button"
                   onClick={() => {
                     setIsEditingProduct(false);
                     setEditingProduct(null);
@@ -634,7 +634,7 @@ const ProductManagement = () => {
                       Update Product
                     </button>
                     <button
-                      className="admin-action-btn delete"
+                      className="cancel-booking"
                       onClick={() => {
                         setIsEditingProduct(false);
                         setEditingProduct(null);
