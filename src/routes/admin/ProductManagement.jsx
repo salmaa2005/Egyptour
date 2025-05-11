@@ -236,6 +236,114 @@ const ProductManagement = () => {
           </button>
         </div>
 
+        {/* Add Product Popup */}
+        {isAddingProduct && (
+          <div className="admin-popup-overlay">
+            <div className="admin-popup">
+              <div className="admin-popup-header">
+                <h2>Add New Product</h2>
+                <button
+                  className="admin-popup-close"
+                  onClick={() => setIsAddingProduct(false)}
+                >
+                  <FiX />
+                </button>
+              </div>
+              <div className="admin-popup-content">
+                <div className="admin-form">
+                  <div className="form-group">
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      value={newProduct.title}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, title: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Image URL</label>
+                    <input
+                      type="text"
+                      value={newProduct.image}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, image: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Price</label>
+                    <input
+                      type="number"
+                      value={newProduct.price}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, price: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Description</label>
+                    <textarea
+                      value={newProduct.description}
+                      onChange={(e) =>
+                        setNewProduct({
+                          ...newProduct,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Category</label>
+                    <select
+                      value={newProduct.category}
+                      onChange={(e) =>
+                        setNewProduct({
+                          ...newProduct,
+                          category: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="">Select a category</option>
+                      {categories
+                        .filter((cat) => cat !== "All")
+                        .map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Stock Quantity</label>
+                    <input
+                      type="number"
+                      value={newProduct.stock}
+                      onChange={(e) =>
+                        setNewProduct({ ...newProduct, stock: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="form-actions">
+                    <button
+                      className="admin-primary-btn"
+                      onClick={handleAddProduct}
+                    >
+                      Add Product
+                    </button>
+                    <button
+                      className="admin-action-btn delete"
+                      onClick={() => setIsAddingProduct(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Category Management Popup */}
         {isCategoryPopupOpen && (
           <div className="admin-popup-overlay">
@@ -319,90 +427,6 @@ const ProductManagement = () => {
                     Add Category
                   </button>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {isAddingProduct && (
-          <div className="admin-form-container">
-            <h2>Add New Product</h2>
-            <div className="admin-form">
-              <div className="form-group">
-                <label>Title</label>
-                <input
-                  type="text"
-                  value={newProduct.title}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, title: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Image URL</label>
-                <input
-                  type="text"
-                  value={newProduct.image}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, image: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Price</label>
-                <input
-                  type="number"
-                  value={newProduct.price}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, price: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Description</label>
-                <textarea
-                  value={newProduct.description}
-                  onChange={(e) =>
-                    setNewProduct({
-                      ...newProduct,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Category</label>
-                <input
-                  type="text"
-                  value={newProduct.category}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, category: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Stock Quantity</label>
-                <input
-                  type="number"
-                  value={newProduct.stock}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, stock: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-actions">
-                <button
-                  className="admin-primary-btn"
-                  onClick={handleAddProduct}
-                >
-                  Add Product
-                </button>
-                <button
-                  className="admin-action-btn delete"
-                  onClick={() => setIsAddingProduct(false)}
-                >
-                  Cancel
-                </button>
               </div>
             </div>
           </div>

@@ -1212,6 +1212,7 @@
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  backdrop-filter: blur(4px);
 }
 
 .admin-popup {
@@ -1219,10 +1220,22 @@
   border-radius: 12px;
   width: 90%;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: popupFadeIn 0.3s ease;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .admin-popup-header {
@@ -1231,20 +1244,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(to right, #006666, #00c2c2);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .admin-popup-header h2 {
   margin: 0;
-  color: #5a3921;
+  color: white;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .admin-popup-close {
-  background: none;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  color: #666;
+  color: white;
   cursor: pointer;
   padding: 0.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1252,13 +1272,127 @@
 }
 
 .admin-popup-close:hover {
-  color: #5a3921;
+  background: rgba(255, 255, 255, 0.3);
   transform: rotate(90deg);
 }
 
 .admin-popup-content {
-  padding: 1.5rem;
+  padding: 2rem;
   overflow-y: auto;
+  background: white;
+}
+
+/* Form Styles in Popup */
+.admin-popup .admin-form {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.admin-popup .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.admin-popup .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #5a3921;
+  font-size: 0.95rem;
+}
+
+.admin-popup .form-group input,
+.admin-popup .form-group textarea,
+.admin-popup .form-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.admin-popup .form-group input:focus,
+.admin-popup .form-group textarea:focus,
+.admin-popup .form-group select:focus {
+  outline: none;
+  border-color: #c19a6b;
+  box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+}
+
+.admin-popup .form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.admin-popup .form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235a3921' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.admin-popup .form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.admin-popup .form-actions button {
+  flex: 1;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.admin-popup .form-actions .admin-primary-btn {
+  background: linear-gradient(135deg, #006666 0%, #00c2c2 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 102, 102, 0.2);
+}
+
+.admin-popup .form-actions .admin-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 102, 102, 0.3);
+}
+
+.admin-popup .form-actions .admin-action-btn.delete {
+  background: white;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+}
+
+.admin-popup .form-actions .admin-action-btn.delete:hover {
+  background: #fdecea;
+  transform: translateY(-2px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-popup {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .admin-popup-content {
+    padding: 1.5rem;
+  }
+
+  .admin-popup .form-actions {
+    flex-direction: column;
+  }
+
+  .admin-popup .form-actions button {
+    width: 100%;
+  }
 }
 
 /* Category List Styles */
