@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "./AdminShared.css";
+import "./AdminSidebar.css";
 
 const AdminSidebar = () => {
   const location = useLocation();
